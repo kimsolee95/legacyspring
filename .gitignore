@@ -18,3 +18,21 @@ Servers/Tomcat v9.0 Server at localhost-config/server.xml
 Servers/Tomcat v9.0 Server at localhost-config/tomcat-users.xml
 Servers/.settings/org.eclipse.wst.server.core.prefs
 Servers/.project
+ex01/target/m2e-wtp/web-resources/META-INF/maven/org.zerock/controller/pom.properties
+ex01/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+ex01/.settings/org.springframework.ide.eclipse.core.prefs
+ex01/.settings/org.springframework.ide.eclipse.beans.core.prefs
+ex01/.settings/org.eclipse.wst.validation.prefs
+ex01/.settings/org.eclipse.wst.common.project.facet.core.xml
+ex01/.settings/org.eclipse.m2e.core.prefs
+ex01/.settings/org.eclipse.jdt.apt.core.prefs
+ex01/.settings/org.eclipse.jdt.core.prefs
+ex01/.factorypath
+ex01/.classpath
+ex00/target/classes/log4jdbc.log4j2.properties
+ex00/target/classes/org/zerock/mapper/TimeMapper.class
+ex00/target/test-classes/org/zerock/persistence/JDBCTests.class
+ex00/.factorypath
+ex00/src/main/java/org/zerock/mapper/TimeMapper.java
+ex00/src/main/resources/log4jdbc.log4j2.properties
+ex00/src/test/java/org/zerock/persistence/JDBCTests.java
