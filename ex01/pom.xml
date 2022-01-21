@@ -98,6 +98,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -120,7 +121,10 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
+			<!--
 			<scope>runtime</scope>
+			 --> 
+			 <!-- 해당 부분은 log4j 어노테이션 활용을 위해 주석처리합니다. -->
 		</dependency>
 
 		<!-- log4j로 로깅하기 때문에 추가합니다.. -->
