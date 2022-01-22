@@ -36,3 +36,15 @@ ex00/.factorypath
 ex00/src/main/java/org/zerock/mapper/TimeMapper.java
 ex00/src/main/resources/log4jdbc.log4j2.properties
 ex00/src/test/java/org/zerock/persistence/JDBCTests.java
+simpleboard/.classpath
+simpleboard/.factorypath
+simpleboard/.springBeans
+simpleboard/.project
+simpleboard/.settings/org.eclipse.jdt.core.prefs
+simpleboard/.settings/org.eclipse.m2e.core.prefs
+simpleboard/.settings/org.eclipse.jdt.apt.core.prefs
+simpleboard/.settings/org.eclipse.wst.common.component
+simpleboard/.settings/org.eclipse.wst.common.project.facet.core.xml
+simpleboard/.settings/org.eclipse.wst.validation.prefs
+simpleboard/.settings/org.springframework.ide.eclipse.beans.core.prefs
+simpleboard/.settings/org.springframework.ide.eclipse.core.prefs
