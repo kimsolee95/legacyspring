@@ -8,12 +8,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 
 		<property name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+			value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="jdbcUrl" 
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+			value="jdbc:oracle:thin:@localhost:1521:XE"></property>
 				
 		<property name="username" value="book_ex"></property>
 		<property name="password" value="boog_ex"></property>
@@ -29,6 +30,63 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	-->
+   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+
+        <!-- 바로 오라클 로 가는 거 기본 타입 -->
+
+        <property name="driverClassName"
+
+            value="oracle.jdbc.driver.OracleDriver" />
+
+        <property name="jdbcUrl"
+
+            value="jdbc:oracle:thin:@localhost:1521:XE" />
+
+        <!-- <property name="driverClassName" -->
+
+        <!-- value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->
+
+        <!-- DB 접속 정보를 설치한 것에 맞게 변경해 줘야 한다. -> 만약에 11g xe를 설치한 경우 <property name="jdbcUrl" 
+
+            value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" /> <property name="username" 
+
+            value="java09" /> <property name="password" value="java09" /> -->
+
+        <!-- <property name="jdbcUrl" -->
+
+        <!-- value="jdbc:log4jdbc:oracle:thin:@402-oracle:1521:orcl" /> -->
+
+        <property name="username" value="book_ex" />
+
+        <property name="password" value="book_ex" />
+
+    </bean>
+
+    
+
+    <!-- 서버가 시작되면 Connection을 만들어서 DBCP에 넣어둔다. 속도↑ -->
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+
+        destroy-method="close">
+
+        <constructor-arg ref="hikariConfig" />
+
+    </bean>
+
+    <!-- Mybaits - dao 코드 자동 생성 -->
+
+    <!-- mapper Interface(메서드이름) - mapper xml(sql) -->
+
+    <bean id="sqlSessionFactory"
+
+        class="org.mybatis.spring.SqlSessionFactoryBean">
+
+        <property name="dataSource" ref="dataSource"></property>
+
+    </bean>	
+	
 	<!-- mybatis 연동입니다. 해당부분을 스캔합니다. -->
 	<mybatis-spring:scan base-package="org.zerock.mapper"></mybatis-spring:scan>
 	

@@ -7,11 +7,11 @@ import org.zerock.domain.BoardVO;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BoardServiceImpl implements BoardService {
 	
 	private BoardMapper boardMapper;
