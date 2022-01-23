@@ -1,5 +1,7 @@
 package com.test.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +36,9 @@ public class BoardController {
 	}
 	
 	@PostMapping("/createposts")
-	public String createPosts (BoardVO board, RedirectAttributes rttr) {
-		
+	public String createPosts (BoardVO board, RedirectAttributes rttr, HttpSession session) {
+				
+		board.setCreator((String)session.getAttribute("userId"));
 		log.info("create posts==>"  + board);
 		
 		boardService.createPosts(board);
