@@ -27,7 +27,7 @@ public class BoardVO {
 	private String modifier;
 	
 	/* 수정시간 */
-	private String modifiredTime;
+	private String modifiedTime;
 	
 	/* 파일 */
 	private String fileRoot;

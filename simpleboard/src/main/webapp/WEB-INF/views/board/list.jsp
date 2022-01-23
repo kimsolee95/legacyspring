@@ -27,10 +27,14 @@
 	  		<td><c:out value="${board.boardTitle}"></c:out></td>
 	  		<td><c:out value="${board.boardComment}"></c:out></td>
 	  		<td><c:out value="${board.creator}"></c:out></td>
-	  		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.createTime}" /></td>
+	  		<td>
+	  			<c:out value="${board.createTime}"></c:out>
+	  		</td>
 	  		<td><c:out value="${board.modifier}"></c:out></td>
-	  		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.modifiredTime}" /></td>
-	  		<td>이모티콘?</td>	  		
+	  		<td>
+	  			<c:out value="${board.modifiedTime}"></c:out>
+	  		</td>
+	  		<td>이모티콘?</td>
 	  	</tr>
 	  </c:forEach>
 	  </table>

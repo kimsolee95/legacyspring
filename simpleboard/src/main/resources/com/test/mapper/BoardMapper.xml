@@ -19,4 +19,24 @@
 		FROM BOARD
 	</select>
 
+	<insert id="createPosts" parameterType="com.test.domain.BoardVO">
+		INSERT INTO BOARD (
+			BOARD_TYPE
+			, BOARD_NUM
+			, BOARD_TITLE
+			, BOARD_COMMENT
+			, CREATOR
+			, CREATE_TIME
+			, FILE_ROOT
+		) VALUES (
+			#{boardType}
+			, BOARD_SEQ.NEXTVAL
+			, #{boardTitle}
+			, #{boardComment}
+			, #{creator}
+			, TO_CHAR(sysdate, 'YYYY-MM-DD')
+			, #{fileRoot}
+		)	
+	</insert>
+
 </mapper>

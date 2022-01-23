@@ -7,4 +7,6 @@ import com.test.domain.BoardVO;
 public interface BoardMapper {
 
 	public List<BoardVO> selectBoardList();
+	
+	public int createPosts(BoardVO board);
 }
