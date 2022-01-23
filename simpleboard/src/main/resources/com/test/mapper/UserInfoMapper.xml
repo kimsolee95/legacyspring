@@ -33,4 +33,24 @@
 		)	
 	</insert>
 	
+	<select id="login" parameterType="com.test.domain.UserInfoVO" resultType="com.test.domain.UserInfoVO">
+		SELECT
+			USER_ID
+			, USER_PW
+			, USER_NAME
+			, USER_PHONE1
+			, USER_PHONE2
+			, USER_PHONE3
+			, USER_ADDR1
+			, USER_ADDR2
+			, USER_COMPANY
+			, CREATOR
+			, CREATE_TIME
+			, MODIFIER
+			, MODIFIED_TIME
+		FROM USER_INFO
+		WHERE USER_ID = #{userId}
+		AND USER_PW = #{userPw}	
+	</select>
+	
 </mapper>

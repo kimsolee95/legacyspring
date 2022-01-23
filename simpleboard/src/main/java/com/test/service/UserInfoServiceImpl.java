@@ -20,4 +20,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfoMapper.joinUser(userInfo);
 	}
 
+	@Override
+	public UserInfoVO login(UserInfoVO userInfo) {
+		return userInfoMapper.login(userInfo);
+	}
+
 }

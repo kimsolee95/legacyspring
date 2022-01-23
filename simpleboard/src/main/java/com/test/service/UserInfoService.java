@@ -6,4 +6,6 @@ public interface UserInfoService {
 	
 	public int joinUser(UserInfoVO userInfo);
 
+	public UserInfoVO login(UserInfoVO userInfo);
+
 }
