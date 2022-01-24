@@ -9,4 +9,6 @@ public interface BoardMapper {
 	public List<BoardVO> selectBoardList();
 	
 	public int createPosts(BoardVO board);
+	
+	public int updatePosts(BoardVO board);
 }

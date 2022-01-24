@@ -49,5 +49,21 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	@GetMapping("/updateposts")
+	public void updatePosts(Model model) {
+		log.info("입력 페이지 get방식으로 출력");
+		model.addAttribute("menuCode", comCodeService.selectMenuCode());
+	}
+	
+	@PostMapping("/updateposts")
+	public String updatePosts (BoardVO board, Model model, HttpSession session) {
+		
+		board.setModifier((String)session.getAttribute("userId"));
+		boardService.updatePosts(board);
+		
+		return "redirect:/board/list";	
+	}
+	
 
 }

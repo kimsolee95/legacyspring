@@ -27,4 +27,9 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.createPosts(board);
 	}
 
+	@Override
+	public int updatePosts(BoardVO board) {
+		return boardMapper.updatePosts(board);
+	}
+
 }
