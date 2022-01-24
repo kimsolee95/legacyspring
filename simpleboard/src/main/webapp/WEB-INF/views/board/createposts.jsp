@@ -20,7 +20,14 @@
 					
 					<form role="form" action="/board/createposts" method="post">
 						<div class="form-group">
-							<label>글타입(공통)</label> <input class="form-control" name='boardType'>
+							<label>글타입(공통)</label>
+							<select name="boardType">
+								<c:forEach items="${menuCode}" var="menuCode" varStatus="status2">
+									<option value="<c:out value="${menuCode.codeId}"/>">
+										<c:out value="${menuCode.codeName}"/>
+									</option>
+								</c:forEach>
+							</select>
 						</div>					
 						<div class="form-group">
 							<label>제목</label> <input class="form-control" name='boardTitle'>

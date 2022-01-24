@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.domain.BoardVO;
 import com.test.service.BoardService;
+import com.test.service.ComCodeService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class BoardController {
 	
-	private  BoardService boardService;
+	private BoardService boardService;
+	private ComCodeService comCodeService;
 	
 	@GetMapping("/list")
 	public void list (Model model) {
@@ -31,8 +33,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/createposts")
-	public void createPosts() {
+	public void createPosts(Model model) {
 		log.info("입력 페이지 get방식으로 출력");
+		model.addAttribute("menuCode", comCodeService.selectMenuCode());
 	}
 	
 	@PostMapping("/createposts")
