@@ -27,8 +27,14 @@
 				
 				<div class="row">
 					<div class="col-md-2 mb-3">
-						<label for="userPhone1">연락처(공통)</label>
-						<input type="text" class="form-control" id="userPhone1" name='userPhone1' placeholder="010" required>
+						<label for="userPhone1">연락처1</label>
+						<select name="userPhone1">
+						<c:forEach items="${phoneCode}" var="phoneCode" varStatus="status2">
+							<option value="<c:out value="${phoneCode.codeId}"/>">
+								<c:out value="${phoneCode.codeName}"/>
+							</option>
+						</c:forEach>
+						</select>
 					</div>
 					<div class="col-md-4 mb-3">
 						<label for="userPhone2">연락처2</label>

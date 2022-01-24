@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.test.domain.UserInfoVO;
+import com.test.mapper.ComCodeMapper;
 import com.test.service.UserInfoService;
 
 import lombok.AllArgsConstructor;
@@ -23,10 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	
 	UserInfoService userInfoService;
+	ComCodeMapper comCodeMapper;
 
 	@GetMapping("/join")
-	public void joinUser() {
+	public void joinUser(Model model) {
 		log.info("가입페이지 get방식 출력");
+		model.addAttribute("phoneCode", comCodeMapper.selectPhoneCode());
 	}
 	
 	@PostMapping("/join")
