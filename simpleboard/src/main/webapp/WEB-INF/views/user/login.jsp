@@ -7,7 +7,6 @@
 	<div class="container">
 		<div class="form-signin">
 		<form  role="form" action="/user/login" method="post">
-			<h1>Sign in</h1>
 			<input type="text" class="form-control" placeholder="ID" name='userId' required autofocus>
 			<input type="password" class="form-control" placeholder="Passward" name='userPw' reqiored>
 			<div>

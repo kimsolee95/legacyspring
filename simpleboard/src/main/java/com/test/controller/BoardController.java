@@ -7,9 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.domain.BoardVO;
+import com.test.domain.Criteria;
+import com.test.domain.PageDTO;
 import com.test.service.BoardService;
 import com.test.service.ComCodeService;
 
@@ -26,43 +29,57 @@ public class BoardController {
 	private ComCodeService comCodeService;
 	
 	@GetMapping("/list")
-	public void list (Model model) {
-		
+	public void list (String searchCode, Model model,  HttpSession session) { //@RequestParam("searchCode")String searchCode, , Criteria cri
 		log.info("list");
-		model.addAttribute("list", boardService.selectBoardList());
+
+		if ("ALL".equals(searchCode)) {
+			searchCode = null;
+		}
+		
+		model.addAttribute("list", boardService.selectBoardList(searchCode));
+		model.addAttribute("total", boardService.totalBoardList(searchCode));
 	}
 	
 	@GetMapping("/createposts")
 	public void createPosts(Model model) {
-		log.info("입력 페이지 get방식으로 출력");
+		log.info("�Է� ������ get������� ���");
 		model.addAttribute("menuCode", comCodeService.selectMenuCode());
 	}
 	
 	@PostMapping("/createposts")
-	public String createPosts (BoardVO board, RedirectAttributes rttr, HttpSession session) {
+	public String createPosts (BoardVO board, HttpSession session) { //RedirectAttributes rttr,
 				
 		board.setCreator((String)session.getAttribute("userId"));
 		log.info("create posts==>"  + board);
 		
 		boardService.createPosts(board);
-		rttr.addFlashAttribute("result", board.getBoardNum());
+		//rttr.addFlashAttribute("result", board.getBoardNum());
 		
 		return "redirect:/board/list";
 	}
 	
+	@GetMapping("/posts")
+	public void list (@RequestParam("boardNum")Long boardNum, Model model,  HttpSession session) {
+		log.info("select boardOne");
+		model.addAttribute("posts", boardService.selectBoardOne(boardNum));
+	}
+	
 	@GetMapping("/updateposts")
-	public void updatePosts(Model model) {
-		log.info("입력 페이지 get방식으로 출력");
-		model.addAttribute("menuCode", comCodeService.selectMenuCode());
+	public void updatePosts(@RequestParam("boardNum")Long boardNum, BoardVO board, Model model,  HttpSession session) { 
+		board.setCreator((String)session.getAttribute("userId")); 
+		model.addAttribute("menuCode", comCodeService.selectMenuCode());  
+		model.addAttribute("posts", boardService.selectBoardOne(boardNum));
 	}
 	
 	@PostMapping("/updateposts")
-	public String updatePosts (BoardVO board, Model model, HttpSession session) {
+	public String updatePosts(@RequestParam("boardNum")Long boardNum, BoardVO board, RedirectAttributes rttr, HttpSession session) {
 		
-		board.setModifier((String)session.getAttribute("userId"));
+		board.setModifier((String) session.getAttribute("userId"));
+		//�۹�ȣ �Ѱܹޱ� 
+		board.setBoardNum(boardNum);
+		
 		boardService.updatePosts(board);
-		
-		return "redirect:/board/list";	
+		return "redirect:/board/list";
 	}
 	
 

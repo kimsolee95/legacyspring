@@ -5,51 +5,74 @@
     
 <mapper namespace="com.test.mapper.BoardMapper">
 
-	<select id="selectBoardList" resultType="com.test.domain.BoardVO">
-		SELECT
-			BOARD_TYPE
-			, BOARD_NUM
-			, BOARD_TITLE
-			, BOARD_COMMENT
-			, CREATOR
-			, CREATE_TIME
-			, MODIFIER
-			, MODIFIED_TIME
-			, FILE_ROOT
-		FROM BOARD
+	<select id="selectBoardList" resultType="com.test.domain.BoardListVO">
+		SELECT 
+			C.CODE_NAME 
+			, B.BOARD_NUM 
+			, B.BOARD_TITLE 
+		FROM BOARD B 
+		INNER JOIN COM_CODE C 
+		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
+		<where>
+			<if test="value != null"> C.CODE_ID = #{value} </if>
+		</where>
+	</select>
+	
+	<select id="totalBoardList" parameterType="String" resultType="int">
+		SELECT 
+			COUNT(B.BOARD_NUM) 
+		FROM BOARD B 
+		INNER JOIN COM_CODE C 
+		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
+		<where>
+			<if test="value != null"> C.CODE_ID = #{value} </if>
+		</where>
+	</select>
+
+	<select id="selectBoardOne" resultType="com.test.domain.BoardVO">
+		SELECT 
+			BOARD_TYPE 
+			, BOARD_NUM 
+			, BOARD_TITLE 
+			, BOARD_COMMENT 
+			, CREATOR 
+			, CREATE_TIME 
+			, MODIFIER 
+			, MODIFIED_TIME 
+			, FILE_ROOT 
+		FROM BOARD 
+		WHERE BOARD_NUM = #{boardNum} 
 	</select>
 
 	<insert id="createPosts" parameterType="com.test.domain.BoardVO">
 		INSERT INTO BOARD (
-			BOARD_TYPE
-			, BOARD_NUM
-			, BOARD_TITLE
-			, BOARD_COMMENT
-			, CREATOR
-			, CREATE_TIME
-			, FILE_ROOT
+			BOARD_TYPE 
+			, BOARD_NUM 
+			, BOARD_TITLE 
+			, BOARD_COMMENT 
+			, CREATOR 
+			, CREATE_TIME 
+			, FILE_ROOT 
 		) VALUES (
-			#{boardType}
-			, BOARD_SEQ.NEXTVAL
-			, #{boardTitle}
-			, #{boardComment}
-			, #{creator}
-			, TO_CHAR(sysdate, 'YYYY-MM-DD')
-			, #{fileRoot}
-		)	
+			#{boardType} 
+			, BOARD_SEQ.NEXTVAL 
+			, #{boardTitle} 
+			, #{boardComment} 
+			, #{creator} 
+			, TO_CHAR(sysdate, 'YYYY-MM-DD') 
+			, #{fileRoot} 
+			)
 	</insert>
-	
-	<update id="updatePosts" parameterType="com.test.domain.BoardVO">
-		UPDATE BOARD
-		SET
-			BOARD_TYPE = #{boardType}
-			, BOARD_TITLE = #{boardTitle}
-			, BOARD_COMMENT = #{boardComment}
-			, MODIFIER = #{modifier}
+
+	<update id="updatePosts" parameterType="com.test.domain.BoardVO"> 
+		UPDATE BOARD SET 
+			BOARD_TYPE = #{boardType} 
+			, BOARD_TITLE = #{boardTitle} 
+			, BOARD_COMMENT = #{boardComment} 
+			, MODIFIER = #{modifier} 
 			, MODIFIED_TIME = TO_CHAR(sysdate, 'YYYY-MM-DD')
-		WHERE 
-		CREATOR = #{modifier}
-		AND BOARD_NUM = #{boardNum}
+		WHERE CREATOR = #{modifier} 
+		AND BOARD_NUM = #{boardNum} 
 	</update>
 
 </mapper>

@@ -16,13 +16,29 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private UserInfoMapper userInfoMapper;
 
 	@Override
-	public int joinUser(UserInfoVO userInfo) {
-		return userInfoMapper.joinUser(userInfo);
+	public Long joinUser(UserInfoVO userInfo) {
+		
+		Long result;
+				
+		int validateResult = validateId(userInfo);
+		
+		if (validateResult > 0) {
+			result = (long) -1; 
+		} else {
+			result = userInfoMapper.joinUser(userInfo);
+		}
+		
+		return result;
 	}
 
 	@Override
 	public UserInfoVO login(UserInfoVO userInfo) {
 		return userInfoMapper.login(userInfo);
+	}
+
+	@Override
+	public int validateId(UserInfoVO userInfo) {
+		return userInfoMapper.validateId(userInfo);
 	}
 
 }

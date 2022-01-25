@@ -13,7 +13,9 @@
 	  <a class="nav-link" href="#">회원가입</a>
 	  <a class="nav-link disabled">글쓰기</a>
 	</nav>
-<script type="text/javascript" src="resources/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
 </body>
 </html>
 

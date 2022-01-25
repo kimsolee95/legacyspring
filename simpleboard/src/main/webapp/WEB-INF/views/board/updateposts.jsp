@@ -24,14 +24,16 @@
 							</select>
 						</div>					
 						<div class="form-group">
-							<label>제목</label> <input class="form-control" name='boardTitle'>
+							<label>제목</label> <input class="form-control" name='boardTitle' value="${posts.boardTitle}"> <!-- <c:out value="${posts.boardTitle}"/> -->
 						</div>
 						<div class="form-group">
-							<label>내용</label> <input class="form-control" name='boardComment'>
+							<label>내용</label> <input class="form-control" name='boardComment' value="${posts.boardComment}"> <!-- <c:out value="${posts.boardComment}"/> -->
 						</div>
-						<!-- 첨부파일란 todo-->
+						<div>
+						<input type="hidden" name="boardNum" value="<c:out value="${posts.boardNum}"/>">
 						<button type="submit" class="btn btn-default">등록</button>
 						<button type="reset" class="btn btn-default">취소</button>
+						</div>
 					</form>
 				</div>
 			</div>

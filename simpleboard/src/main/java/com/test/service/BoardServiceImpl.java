@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.test.domain.BoardListVO;
 import com.test.domain.BoardVO;
+import com.test.domain.Criteria;
 import com.test.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -18,17 +20,27 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardVO> selectBoardList() {
-		return boardMapper.selectBoardList();
+	public List<BoardListVO> selectBoardList(String searchCode) {
+		return boardMapper.selectBoardList(searchCode);
 	}
 
+	@Override
+	public int totalBoardList(String searchCode) {
+		return boardMapper.totalBoardList(searchCode);
+	}	
+	
 	@Override
 	public int createPosts(BoardVO board) {
 		return boardMapper.createPosts(board);
 	}
 
 	@Override
-	public int updatePosts(BoardVO board) {
+	public BoardVO selectBoardOne(Long boardNum) {
+		return boardMapper.selectBoardOne(boardNum);
+	}
+
+	@Override
+	public int updatePosts(BoardVO board) {		
 		return boardMapper.updatePosts(board);
 	}
 
