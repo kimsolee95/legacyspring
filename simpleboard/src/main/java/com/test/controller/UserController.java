@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.domain.ComCodeVO;
+import com.test.domain.UserInfoCheckVO;
 import com.test.domain.UserInfoVO;
 import com.test.service.ComCodeService;
 import com.test.service.UserInfoService;
@@ -70,6 +71,16 @@ public class UserController {
 		
 		}
 	
+	}
+	
+	@PostMapping("/check-login")
+	@ResponseBody
+	public int checkLogin(@RequestBody UserInfoCheckVO userInfo) {
+		//UserInfoCheckVO userInfo = new UserInfoCheckVO();
+		//userInfo.setUserId(userId);
+		//userInfo.setUserPw(userPw);
+		int cnt = userInfoService.checkLogin(userInfo);
+		return cnt;
 	}
 	
 	@GetMapping("/logout")

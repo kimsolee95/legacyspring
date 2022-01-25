@@ -2,6 +2,7 @@ package com.test.service;
 
 import org.springframework.stereotype.Service;
 
+import com.test.domain.UserInfoCheckVO;
 import com.test.domain.UserInfoVO;
 import com.test.mapper.UserInfoMapper;
 
@@ -39,6 +40,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public int validateId(UserInfoVO userInfo) {
 		return userInfoMapper.validateId(userInfo);
+	}
+
+	@Override
+	public int checkLogin(UserInfoCheckVO userInfo) {
+		return userInfoMapper.checkLogin(userInfo);
 	}
 
 }

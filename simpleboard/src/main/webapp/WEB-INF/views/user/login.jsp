@@ -6,12 +6,75 @@
 
 	<div class="container">
 		<div class="form-signin">
-		<form  role="form" action="/user/login" method="post">
-			<input type="text" class="form-control" placeholder="ID" name='userId' required autofocus>
-			<input type="password" class="form-control" placeholder="Passward" name='userPw' reqiored>
+		<form  role="form" id="frm" name="frm" action="/user/login" method="post">
+			<input type="text" class="form-control" placeholder="ID" id="userId" name='userId' required autofocus>
+			<input type="text" class="form-control" placeholder="pw" id="userPw" name='userPw' required> <!-- password -->
 			<div>
-			<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+			<button type="button" id ="checkLogin" class="btn btn-primary btn-lg btn-block">Login</button>
 			</div>
 		</form>
 		</div>
 	</div>
+	
+<script>
+
+	var canLogin = false;
+	
+	$(function() {
+		//idck 버튼을 클릭했을 때 
+		$("#checkLogin").click(function() {
+
+			//userid 를 param.
+			var userId =  $("#userId").val();
+			var userPw = $("#userPw").val();
+			
+			//var form = {
+			//	"userId" : $("#userId").val(),
+			//	"userPw" : $("#userPw").val()
+			//};
+			
+			
+			$.ajax({
+			//async: true,
+			type : 'POST',
+			
+			data : JSON.stringify({
+					 "userId" : userId,
+					 "userPw" : userPw
+					}),
+			
+			//data: form,
+			url : "/user/check-login",
+			dataType : "json",
+			contentType: "application/json; charset=UTF-8",
+			success : function(cnt) {
+				if (cnt > 0) {
+					canLogin = true;
+					//doLogin();
+					$("#frm").submit();
+				} else {
+						alert("ID 혹은 PW를 확인해주세요");
+					}
+				},
+				error : function(error) {
+					alert("error : " + error);
+				}
+			});
+		});
+	});	
+	/*
+	function doLogin() {
+		
+
+		if(canLogin){
+			//alert("회원가입을 완료하였습니다.");
+			$("#frm").submit();
+		} else {
+			alert("ID 혹은 PW를 확인해주세요");
+			return false;
+		}
+
+	}
+	*/
+
+</script>
