@@ -8,7 +8,7 @@
 	<div class="input-form-background row">
 		<div class="inputpfrom col-md-12 mx-auto">
 			<h4 class="mb-3">회원가입</h4>
-			<form role="form" action="/user/join" method="post">
+			<form role="form" id="frm" name="frm" action="/user/join" method="post">
 				<div class="row">
 					<div class="col-md-6 mb-5">
 						<label for="userId">ID</label>
@@ -67,7 +67,7 @@
 					<label for="userCompany">소속회사</label>
 					<input type="text" class="form-control" id="userCompany" name='userCompany' placeholder="소속회사">
 				</div>				
-				<button class="btn btn-primary btn-lg btn-block" type="submit">회원 가입</button>
+				<button class="btn btn-primary btn-lg btn-block" type="button" onClick="join();">회원 가입</button>
 			</form>
 		</div>
 	</div>
@@ -75,64 +75,52 @@
 
 <!-- <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"> -->
 <script>
-	/*
-	$("#userIdCheck").click(function() {
-		let userId = $('#userId').val();
-		
-		$.ajax({
-			url: "user/validateId",
-			type: "post",
-			data: {userId: userId},
-			dataType: 'json',
-			seccess: function(data) {
-				
-				if (data.cnt > 0) {
-					alert("중복된 ID로 사용 불가합니다.");
-					//$("#checkId").html('중복된 ID로 사용 불가합니다.');
-					//$("#checkId").attr('color', 'red');
-				} else {
-					alert("사용 가능항 ID입니다.");
-					//$("#checkId").html('사용 가능한 ID입니다.');
-					//$("#checkId").attr('color', 'green');
-				}
-				
-			},
-			
-			error: function() {
-				alert("ajax 통신 실패");
-			}
-			
-		})
-	})
-	*/
 
-$(function() {
-    //idck 버튼을 클릭했을 때 
-    $("#userIdCheck").click(function() {
-        
-        //userid 를 param.
-        var userId =  $("#userId").val(); 
-        
-        $.ajax({
-            //async: true,
-            type : 'POST',
-            data : userId,
-            url : "/user/validateId",
-            dataType : "json",
-            contentType: "application/json; charset=UTF-8",
-            success : function(cnt) {
-                if (cnt > 0) {
-                    
-                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-                } else {
-                    alert("사용가능한 아이디입니다.");
-                }
-            },
-            error : function(error) {
-                
-                alert("error : " + error);
-            }
-        });
-    });
-});	
+		var canJoin = false;
+		
+		$(function() {
+			//idck 버튼을 클릭했을 때 
+			$("#userIdCheck").click(function() {
+
+				//userid 를 param.
+				var userId =  $("#userId").val(); 
+
+				$.ajax({
+				//async: true,
+				type : 'POST',
+				data : userId,
+				url : "/user/validateId",
+				dataType : "json",
+				contentType: "application/json; charset=UTF-8",
+				success : function(cnt) {
+					if (cnt > 0) {
+
+						alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+					} else {
+							alert("사용가능한 아이디입니다.");
+							canJoin = true;
+						}
+					},
+					error : function(error) {
+						alert("error : " + error);
+					}
+				});
+			});
+		});
+		
+
+		
+		function join() {
+		
+			if(confirm("회원가입을 하시겠습니까?")){
+				if(canJoin){
+					alert("회원가입을 완료하였습니다.");
+					$("#frm").submit();
+				} else {
+					alert('아이디 중복체크를 해주세요');
+					return false;
+				}
+			}
+		}
+		 
 </script>
