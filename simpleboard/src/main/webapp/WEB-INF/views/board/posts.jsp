@@ -20,6 +20,7 @@
 			</tr>			
 		</table>
 		<div>
-			<h3><a href='/board/updateposts?boardNum=<c:out value="${posts.boardNum}"/>'>수정</a></h3>
+			<a href='/board/updateposts?boardNum=<c:out value="${posts.boardNum}"/>'><button type="button" class="btn btn-primary">수정</button></a>
+			<a href='/board/list'><button type="button" class="btn btn-primary">목록</button></a>
 		</div>
 	</div>

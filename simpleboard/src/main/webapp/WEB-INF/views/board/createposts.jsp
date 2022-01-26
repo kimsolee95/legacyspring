@@ -37,7 +37,7 @@
 						</div>
 						<!-- 첨부파일란 todo-->
 						<button type="submit" class="btn btn-default">등록</button>
-						<button type="reset" class="btn btn-default">취소</button>
+						<a href='/board/list'><button type="button" class="btn btn-primary">목록</button></a>
 					</form>
 				</div>
 			</div>

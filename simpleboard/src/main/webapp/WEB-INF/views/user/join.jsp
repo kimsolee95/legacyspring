@@ -21,7 +21,13 @@
 					<div class="col-md-6 mb-5">
 						<label for="userPw">PW</label>
 						<input type="text" class="form-control" id="userPw" name='userPw' placeholder="pw" required>
-					</div>			
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 mb-5">
+						<label for="userPwCheck">PW check</label>
+						<input type="text" class="form-control" id="userPwCheck" name='userPwCheck' placeholder="pw" required>
+					</div>
 				</div>
 				
 				<div class="mb-3">
@@ -46,10 +52,12 @@
 						<label for="userPhone2">연락처2</label>
 						<input type="text" class="form-control" id="userPhone2" name='userPhone2' required>
 					</div>
+					
 					<div class="col-md-4 mb-3">
 						<label for="userPhone3">연락처3</label>
 						<input type="text" class="form-control" id="userPhone3" name='userPhone3' required>
 					</div>
+					
 				</div>
 
 				<div class="row">
@@ -66,27 +74,23 @@
 				<div class="mb-3">
 					<label for="userCompany">소속회사</label>
 					<input type="text" class="form-control" id="userCompany" name='userCompany' placeholder="소속회사">
-				</div>				
+				</div>
 				<button class="btn btn-primary btn-lg btn-block" type="button" onClick="join();">회원 가입</button>
 			</form>
 		</div>
 	</div>
 </div>
 
-<!-- <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"> -->
 <script>
-
 		var canJoin = false;
+		var userId;
 		
 		$(function() {
-			//idck 버튼을 클릭했을 때 
+			
 			$("#userIdCheck").click(function() {
-
-				//userid 를 param.
-				var userId =  $("#userId").val(); 
-
+				//userid  param setting.
+				userId =  $("#userId").val();
 				$.ajax({
-				//async: true,
 				type : 'POST',
 				data : userId,
 				url : "/user/validateId",
@@ -94,11 +98,11 @@
 				contentType: "application/json; charset=UTF-8",
 				success : function(cnt) {
 					if (cnt > 0) {
-
 						alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 					} else {
 							alert("사용가능한 아이디입니다.");
 							canJoin = true;
+							userId =  $("#userId").val();
 						}
 					},
 					error : function(error) {
@@ -108,19 +112,106 @@
 			});
 		});
 		
-
 		
 		function join() {
-		
-			if(confirm("회원가입을 하시겠습니까?")){
-				if(canJoin){
-					alert("회원가입을 완료하였습니다.");
-					$("#frm").submit();
+			
+			var inputUserId =  $("#userId").val();
+			
+			if(confirm("회원가입을 하시겠습니까?")) {
+				
+				if(canJoin) { //1. Id duplication validation
+					
+					//var isPassValidation;
+					var isPassValidation = inputValidation(); //2. 이름, 핸드폰번호, 비밀번호 유효성 test
+					console.log("isPassValidation()", isPassValidation);
+					
+					
+					if (isPassValidation) {
+
+						if (userId === inputUserId) { // do inputId value pass duplicate validation?
+							alert("회원가입을 완료하였습니다.");
+							$("#frm").submit();
+						} else {
+							alert("ID 중복확인을 다시 진행해주세요");
+						}
+						
+					}
+					
 				} else {
 					alert('아이디 중복체크를 해주세요');
 					return false;
 				}
 			}
+		};
+		
+		function inputValidation() { //아이디 중복값 더블체크를 제외한 나머지 유효성 검사 함수
+			
+			var isPassValidation = false;
+			
+			var userPw = document.getElementById("userPw");
+			var userPwCheck = document.getElementById("userPwCheck");
+			var userName = document.getElementById("userName");
+			var userPhone2 = document.getElementById("userPhone2");
+			var userPhone3 = document.getElementById("userPhone3");
+			var phonePassRule = /[0-9]{4}$/;
+			var userAddr1PassRule = /\d{3}-\d{3}/;
+			
+			if (userPw.value == "") {
+				alert("비밀번호를 입력하세요");
+				return isPassValidation;
+			};
+			
+			if (userPwCheck.value == "") {
+				alert("비밀번호 확인란을 입력하세요");
+				return isPassValidation;
+			};
+			
+			if (!(userPw.value === userPwCheck.value)) {
+				console.log("userPw.value==>", userPw.value);
+				console.log("userPwCheck.value==>", userPwCheck.value);
+				alert("비밀번호와 비밀번호 확인란 입력값이 다릅니다.");
+				return isPassValidation;
+			};
+			
+			if ((userPw.value.length < 6) || (userPw.value.length >= 12)) {
+				
+				console.log("userPw.length", userPw.length);
+				alert("비밀번호는 6~12자로 지정해야 합니다");
+				return isPassValidation;
+			};
+			
+			if (userName.value == "") {
+				alert("이름을 입력하세요");
+				return isPassValidation;
+			};
+			
+			if (userPhone2.value == "") {
+				alert("핸드폰 번호를 입력하세요");
+				return isPassValidation;
+			};
+
+			if (userPhone3.value == "") {
+				alert("핸드폰 마지막 자리 번호를 입력하세요");
+				return isPassValidation;
+			};
+			
+			if (!phonePassRule.test(userPhone2.value)) {
+				alert("핸드폰 번호는 4자리 숫자로 적어주세요");
+				return isPassValidation;
+			};
+			
+			if (!phonePassRule.test(userPhone3.value)) {
+				alert("핸드폰 번호는 4자리 숫자로 적어주세요");
+				return isPassValidation;
+			};
+			
+			if (!userAddr1PassRule.test(userAddr1.value)) {
+				alert("우편번호는 xxx-xxx 의 형식으로 적어주세요");
+				return isPassValidation;
+			}
+			
+			isPassValidation = true;
+			return isPassValidation;
 		}
 		 
 </script>

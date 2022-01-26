@@ -66,7 +66,7 @@ public class UserController {
 				return "/login";
 			} else {
 				session.setAttribute("userId", loginResult.getUserId());
-				return "/board/list";
+				return "redirect:/board/list";
 			}
 		
 		}
@@ -76,9 +76,6 @@ public class UserController {
 	@PostMapping("/check-login")
 	@ResponseBody
 	public int checkLogin(@RequestBody UserInfoCheckVO userInfo) {
-		//UserInfoCheckVO userInfo = new UserInfoCheckVO();
-		//userInfo.setUserId(userId);
-		//userInfo.setUserPw(userPw);
 		int cnt = userInfoService.checkLogin(userInfo);
 		return cnt;
 	}

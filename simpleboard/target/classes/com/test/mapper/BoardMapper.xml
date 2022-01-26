@@ -14,7 +14,7 @@
 		INNER JOIN COM_CODE C 
 		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
 		<where>
-			<if test="value != null"> C.CODE_ID = #{value} </if>
+			<if test="value != null and value != ''"> C.CODE_ID = #{value} </if>
 		</where>
 	</select>
 	
@@ -25,7 +25,7 @@
 		INNER JOIN COM_CODE C 
 		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
 		<where>
-			<if test="value != null"> C.CODE_ID = #{value} </if>
+			<if test="value != null and value != ''"> C.CODE_ID = #{value} </if>
 		</where>
 	</select>
 
