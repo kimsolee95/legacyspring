@@ -31,6 +31,10 @@
 						</div>
 						<div>
 						<input type="hidden" name="boardNum" value="<c:out value="${posts.boardNum}"/>">
+			  			<!-- paging value -->
+						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+						<input type="hidden" name="pageNum" value="${pageMaker.cri.amount}">
+						
 						<button type="submit" class="btn btn-default">등록</button>
 						<a href='/board/list'><button type="button" class="btn btn-primary">목록</button></a>
 						</div>

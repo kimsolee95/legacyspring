@@ -21,7 +21,11 @@
 	  	<tr>
 	  		<td><c:out value="${board.codeName}"></c:out></td>
 	  		<td><c:out value="${board.boardNum}"></c:out></td>
-	  		<td><a href='/board/posts?boardNum=<c:out value="${board.boardNum}"/>'><c:out value="${board.boardTitle}"></c:out></a></td>
+	  		<td>
+	  			<a href='/board/posts?boardNum=<c:out value="${board.boardNum}"/>'>
+	  				<c:out value="${board.boardTitle}"></c:out>
+	  			</a>
+	  		</td>
 	  	</tr>
 	  </c:forEach>
 	  </table>
@@ -39,14 +43,71 @@
 		</c:if>
 	  	</div>
 	  	
-	  	<div> <!-- 검색 부분 -->
+	  	<!-- 검색 부분 -->
+	  	<div>
 	  		<form action="/board/list" method="get">
+	  			<!-- searchCode -->
 	  			<input type="radio" name="searchCode" value="ALL">전체
 	  			<input type="radio" name="searchCode" value="a01">일반
 	  			<input type="radio" name="searchCode" value="a02">QA
 	  			<input type="radio" name="searchCode" value="a03">익명
 	  			<input type="radio" name="searchCode" value="a04">자유
+	  			<!-- paging value -->
+				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name="pageNum" value="${pageMaker.cri.amount}">
+				<!-- button -->
 	  			<button type="submit" value="전송" class="btn btn-default">검색</button>
 	  		</form>
 	  	</div>
+	  	
+	  	<!-- 페이징 부분 -->
+	  	<div>
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev}">
+					<li aria-label="Previous">
+						<a href="${pageMaker.startPage -1}">Previous</a>
+					</li>
+				</c:if>
+				
+				<form id='actionForm' action="/board/list" method='get'>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
+							<a href="${num}">${num}</a>
+						</li>
+					</c:forEach>
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.amount}">
+				</form>
+				
+				<c:if test="${pageMaker.next}">
+					<li  aria-label="Next">
+						<a href="${pageMaker.endPage+1}">Next</a>
+					</li>
+				</c:if>
+			</ul>
+	  	</div>
+	  	
+	  	
+
 	  </div>
+	  
+<script>
+
+	$(document).ready(function() {
+
+		var actionForm = $("#actionForm");
+		
+		$(".paginate_button a").on("click", function(e) {
+			
+			e.preventDefault();
+			console.log("click");
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
+		
+		
+		
+	});
+
+
+</script>

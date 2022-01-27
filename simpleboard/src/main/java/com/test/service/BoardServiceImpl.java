@@ -44,4 +44,9 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.updatePosts(board);
 	}
 
+	@Override
+	public List<BoardListVO> selectBoardListWithPaging(Criteria cri) {
+		return boardMapper.selectBoardListWithPaging(cri);
+	}
+
 }

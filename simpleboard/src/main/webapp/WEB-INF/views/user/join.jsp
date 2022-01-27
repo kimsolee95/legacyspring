@@ -50,12 +50,12 @@
 					 
 					<div class="col-md-4 mb-3">
 						<label for="userPhone2">연락처2</label>
-						<input type="text" class="form-control" id="userPhone2" name='userPhone2' required>
+						<input type="number" max="9999" class="form-control" id="userPhone2" name='userPhone2' required>
 					</div>
 					
 					<div class="col-md-4 mb-3">
 						<label for="userPhone3">연락처3</label>
-						<input type="text" class="form-control" id="userPhone3" name='userPhone3' required>
+						<input type="number" max="9999" class="form-control" id="userPhone3" name='userPhone3' required>
 					</div>
 					
 				</div>
@@ -121,14 +121,14 @@
 				
 				if(canJoin) { //1. Id duplication validation
 					
-					//var isPassValidation;
-					var isPassValidation = inputValidation(); //2. 이름, 핸드폰번호, 비밀번호 유효성 test
+					//2. 이름, 핸드폰번호, 비밀번호 유효성 test
+					var isPassValidation = inputValidation();
 					console.log("isPassValidation()", isPassValidation);
-					
-					
+										
 					if (isPassValidation) {
-
-						if (userId === inputUserId) { // do inputId value pass duplicate validation?
+						
+						// do inputId value pass duplicate validation?
+						if (userId === inputUserId) {
 							alert("회원가입을 완료하였습니다.");
 							$("#frm").submit();
 						} else {
@@ -144,7 +144,8 @@
 			}
 		};
 		
-		function inputValidation() { //아이디 중복값 더블체크를 제외한 나머지 유효성 검사 함수
+		//아이디 중복값 더블체크를 제외한 나머지 유효성 검사 함수
+		function inputValidation() {
 			
 			var isPassValidation = false;
 			

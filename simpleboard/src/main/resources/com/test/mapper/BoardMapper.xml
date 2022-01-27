@@ -14,9 +14,34 @@
 		INNER JOIN COM_CODE C 
 		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
 		<where>
-			<if test="value != null and value != ''"> C.CODE_ID = #{value} </if>
+			<if test="value != null and value != ''">
+				C.CODE_ID = #{value}
+			</if>
 		</where>
 	</select>
+
+	<select id="selectBoardListWithPaging" parameterType="com.test.domain.Criteria" resultType="com.test.domain.BoardListVO">
+		<![CDATA[
+		SELECT
+		    T.CODE_NAME
+		    , T.BOARD_NUM
+		    , T.BOARD_TITLE
+		FROM
+			(
+				SELECT
+					ROWNUM RN
+					, C.CODE_NAME 
+					, B.BOARD_NUM 
+					, B.BOARD_TITLE 
+				FROM BOARD B 
+				INNER JOIN COM_CODE C 
+				ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
+				WHERE ROWNUM <= #{pageNum} * #{amount}
+				) T
+		WHERE T.RN > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+
 	
 	<select id="totalBoardList" parameterType="String" resultType="int">
 		SELECT 
@@ -25,7 +50,9 @@
 		INNER JOIN COM_CODE C 
 		ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
 		<where>
-			<if test="value != null and value != ''"> C.CODE_ID = #{value} </if>
+			<if test="value != null and value != ''">
+				C.CODE_ID = #{value}
+			</if>
 		</where>
 	</select>
 

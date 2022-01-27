@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,15 +30,23 @@ public class BoardController {
 	private ComCodeService comCodeService;
 	
 	@GetMapping("/list")
-	public void list (String searchCode, Model model,  HttpSession session) { //@RequestParam("searchCode")String searchCode, , Criteria cri
+	public void list (String searchCode
+						, Model model
+						, HttpSession session
+						, Criteria cri) { //@RequestParam("searchCode")String searchCode, , Criteria cri
+		
 		log.info("list");
 
 		if ("ALL".equals(searchCode)) {
 			searchCode = null;
 		}
 		
-		model.addAttribute("list", boardService.selectBoardList(searchCode));
+		int total = boardService.totalBoardList(searchCode);
+		
+		//model.addAttribute("list", boardService.selectBoardList(searchCode));
+		model.addAttribute("list", boardService.selectBoardListWithPaging(cri));
 		model.addAttribute("total", boardService.totalBoardList(searchCode));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/createposts")
@@ -59,26 +68,40 @@ public class BoardController {
 	}
 	
 	@GetMapping("/posts")
-	public void list (@RequestParam("boardNum")Long boardNum, Model model,  HttpSession session) {
+	public void list (@RequestParam("boardNum")Long boardNum
+						, Model model
+						, @ModelAttribute("cri") Criteria cri
+						, HttpSession session) {
 		log.info("select boardOne");
 		model.addAttribute("posts", boardService.selectBoardOne(boardNum));
 	}
 	
 	@GetMapping("/updateposts")
-	public void updatePosts(@RequestParam("boardNum")Long boardNum, BoardVO board, Model model,  HttpSession session) { 
+	public void updatePosts(@RequestParam("boardNum")Long boardNum
+								, BoardVO board
+								, Model model
+								, @ModelAttribute("cri") Criteria cri
+								, RedirectAttributes rttr
+								,  HttpSession session) { 
 		board.setCreator((String)session.getAttribute("userId")); 
 		model.addAttribute("menuCode", comCodeService.selectMenuCode());  
 		model.addAttribute("posts", boardService.selectBoardOne(boardNum));
 	}
 	
 	@PostMapping("/updateposts")
-	public String updatePosts(@RequestParam("boardNum")Long boardNum, BoardVO board, RedirectAttributes rttr, HttpSession session) {
+	public String updatePosts(@RequestParam("boardNum")Long boardNum
+								, BoardVO board
+								, @ModelAttribute("cri") Criteria cri
+								, RedirectAttributes rttr
+								, HttpSession session) {
 		
 		board.setModifier((String) session.getAttribute("userId"));
 		//�۹�ȣ �Ѱܹޱ� 
 		board.setBoardNum(boardNum);
 		
 		boardService.updatePosts(board);
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		return "redirect:/board/list";
 	}
 	

@@ -10,6 +10,8 @@ public interface BoardMapper {
 
 	public List<BoardListVO> selectBoardList(String searchCode);
 	
+	public List<BoardListVO> selectBoardListWithPaging(Criteria cri);
+	
 	public int totalBoardList(String searchCode);
 	
 	public int createPosts(BoardVO board);
