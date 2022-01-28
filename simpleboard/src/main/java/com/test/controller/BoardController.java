@@ -36,10 +36,6 @@ public class BoardController {
 						, Criteria cri) { //@RequestParam("searchCode")String searchCode, , Criteria cri
 		
 		log.info("list");
-
-		if ("ALL".equals(searchCode)) {
-			searchCode = null;
-		}
 		
 		int total = boardService.totalBoardList(searchCode);
 		

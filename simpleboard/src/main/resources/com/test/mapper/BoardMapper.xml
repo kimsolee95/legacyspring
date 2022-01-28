@@ -23,9 +23,9 @@
 	<select id="selectBoardListWithPaging" parameterType="com.test.domain.Criteria" resultType="com.test.domain.BoardListVO">
 		<![CDATA[
 		SELECT
-		    T.CODE_NAME
-		    , T.BOARD_NUM
-		    , T.BOARD_TITLE
+			T.CODE_NAME
+			, T.BOARD_NUM
+			, T.BOARD_TITLE
 		FROM
 			(
 				SELECT
@@ -36,10 +36,15 @@
 				FROM BOARD B 
 				INNER JOIN COM_CODE C 
 				ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
-				WHERE ROWNUM <= #{pageNum} * #{amount}
-				) T
-		WHERE T.RN > (#{pageNum} - 1) * #{amount}
 		]]>
+				<trim prefix="WHERE" prefixOverrides="AND">
+					<if test="searchCode != null and searchCode != '' and searchCode != 'ALL'"> 
+						C.CODE_ID = #{searchCode}
+					</if>
+				AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{amount}
+				) T
+				</trim>
+		WHERE T.RN <![CDATA[ > ]]> (#{pageNum} - 1) * #{amount}		
 	</select>
 
 	

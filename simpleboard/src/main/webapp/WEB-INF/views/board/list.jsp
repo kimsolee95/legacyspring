@@ -45,7 +45,7 @@
 	  	
 	  	<!-- 검색 부분 -->
 	  	<div>
-	  		<form action="/board/list" method="get">
+	  		<form id="searchForm" action="/board/list" method="get">
 	  			<!-- searchCode -->
 	  			<input type="radio" name="searchCode" value="ALL">전체
 	  			<input type="radio" name="searchCode" value="a01">일반
@@ -54,7 +54,7 @@
 	  			<input type="radio" name="searchCode" value="a04">자유
 	  			<!-- paging value -->
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name="pageNum" value="${pageMaker.cri.amount}">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 				<!-- button -->
 	  			<button type="submit" value="전송" class="btn btn-default">검색</button>
 	  		</form>
@@ -76,7 +76,7 @@
 						</li>
 					</c:forEach>
 					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-					<input type="hidden" name="pageNum" value="${pageMaker.cri.amount}">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 				</form>
 				
 				<c:if test="${pageMaker.next}">
@@ -86,8 +86,6 @@
 				</c:if>
 			</ul>
 	  	</div>
-	  	
-	  	
 
 	  </div>
 	  
@@ -104,8 +102,6 @@
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.submit();
 		});
-		
-		
 		
 	});
 

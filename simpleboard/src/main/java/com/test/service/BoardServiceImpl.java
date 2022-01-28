@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.test.domain.BoardListVO;
 import com.test.domain.BoardVO;
+import com.test.domain.ComCodeVO;
 import com.test.domain.Criteria;
 import com.test.mapper.BoardMapper;
+import com.test.mapper.ComCodeMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
