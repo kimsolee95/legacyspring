@@ -41,7 +41,10 @@ public class BoardController {
 		
 		//model.addAttribute("list", boardService.selectBoardList(searchCode));
 		model.addAttribute("list", boardService.selectBoardListWithPaging(cri));
-		model.addAttribute("total", boardService.totalBoardList(searchCode));
+		
+		//model.addAttribute("total", boardService.totalBoardList(searchCode));
+		model.addAttribute("total", boardService.totalBoardListWithPaging(cri));
+		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	

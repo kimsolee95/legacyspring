@@ -30,6 +30,11 @@ public class BoardServiceImpl implements BoardService{
 	public int totalBoardList(String searchCode) {
 		return boardMapper.totalBoardList(searchCode);
 	}	
+
+	@Override
+	public Integer totalBoardListWithPaging(Criteria cri) {
+		return boardMapper.totalBoardListWithPaging(cri);
+	}
 	
 	@Override
 	public int createPosts(BoardVO board) {
@@ -50,5 +55,6 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardListVO> selectBoardListWithPaging(Criteria cri) {
 		return boardMapper.selectBoardListWithPaging(cri);
 	}
+
 
 }

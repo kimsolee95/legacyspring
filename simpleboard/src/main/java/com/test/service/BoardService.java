@@ -14,6 +14,8 @@ public interface BoardService {
 	
 	public int totalBoardList(String searchCode);
 	
+	public Integer totalBoardListWithPaging(Criteria cri);
+	
 	public int createPosts(BoardVO board);
 	
 	public BoardVO selectBoardOne(Long boardNum);

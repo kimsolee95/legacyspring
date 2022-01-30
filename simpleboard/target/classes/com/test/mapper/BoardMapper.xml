@@ -61,6 +61,31 @@
 		</where>
 	</select>
 
+	<select id="totalBoardListWithPaging" parameterType="com.test.domain.Criteria" resultType="Integer">
+		<![CDATA[
+		SELECT
+			COUNT(T.BOARD_NUM)
+		FROM
+			(
+				SELECT
+					ROWNUM RN
+					, C.CODE_NAME 
+					, B.BOARD_NUM 
+					, B.BOARD_TITLE 
+				FROM BOARD B 
+				INNER JOIN COM_CODE C 
+				ON B.BOARD_TYPE = C.CODE_ID AND C.CODE_TYPE = 'menu'
+		]]>
+				<trim prefix="WHERE" prefixOverrides="AND">
+					<if test="searchCode != null and searchCode != '' and searchCode != 'ALL'"> 
+						C.CODE_ID = #{searchCode}
+					</if>
+				AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{amount}
+				) T
+				</trim>
+		WHERE T.RN <![CDATA[ > ]]> (#{pageNum} - 1) * #{amount}		
+	</select>
+
 	<select id="selectBoardOne" resultType="com.test.domain.BoardVO">
 		SELECT 
 			BOARD_TYPE 
