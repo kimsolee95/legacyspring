@@ -21,4 +21,6 @@ public interface BoardService {
 	public BoardVO selectBoardOne(Long boardNum);
 	
 	public int updatePosts(BoardVO board);
+	
+	public int deletePosts(BoardVO board);
 }

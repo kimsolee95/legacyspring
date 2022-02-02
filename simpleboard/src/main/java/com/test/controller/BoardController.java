@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,7 +92,6 @@ public class BoardController {
 								, HttpSession session) {
 		
 		board.setModifier((String) session.getAttribute("userId"));
-		//�۹�ȣ �Ѱܹޱ� 
 		board.setBoardNum(boardNum);
 		
 		boardService.updatePosts(board);
@@ -100,5 +100,19 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-
+	@DeleteMapping("/deleteposts")
+	public String deletePosts (@RequestParam("boardNum")Long boardNum
+								, BoardVO board
+								, @ModelAttribute("cri") Criteria cri
+								, RedirectAttributes rttr
+								, HttpSession session) {
+		
+		board.setModifier((String) session.getAttribute("userId"));
+		board.setBoardNum(boardNum);
+		
+		boardService.deletePosts(board);
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		return "redirect:/board/list";
+	}
 }

@@ -52,6 +52,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	public int deletePosts(BoardVO board) {
+		return boardMapper.deletePosts(board);
+	}
+	
+	@Override
 	public List<BoardListVO> selectBoardListWithPaging(Criteria cri) {
 		return boardMapper.selectBoardListWithPaging(cri);
 	}

@@ -131,5 +131,11 @@
 		WHERE CREATOR = #{modifier} 
 		AND BOARD_NUM = #{boardNum} 
 	</update>
+	
+	<delete id="deletePosts" parameterType="com.test.domain.BoardVO">
+		DELETE FROM BOARD
+		WHERE BOARD_NUM = #{boardNum}
+		AND CREATOR = #{modifier}
+	</delete>
 
 </mapper>
