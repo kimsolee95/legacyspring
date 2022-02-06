@@ -3,9 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 
@@ -63,10 +67,21 @@
         <!-- 컨피그 추가 -->
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
     </bean>	
-		
+
+	<!-- transaction 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven />
+
+
 	<!-- mybatis 연동입니다. 해당부분을 스캔합니다. -->
 	<mybatis-spring:scan base-package="com.card.mapper"></mybatis-spring:scan>
 	
 	<!-- 스프링 서비스 객체 설정입니다. 해당부분을 스캔합니다. -->
 	<context:component-scan base-package="com.card.service"></context:component-scan>
+	
+	<!-- AOP 기능 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
