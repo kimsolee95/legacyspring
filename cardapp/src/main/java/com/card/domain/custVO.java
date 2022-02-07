@@ -3,7 +3,7 @@ package com.card.domain;
 import lombok.Data;
 
 @Data
-public class custVO {
+public class CustVO {
 
 	/* 고객 table */
 	

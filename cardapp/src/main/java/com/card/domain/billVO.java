@@ -3,7 +3,7 @@ package com.card.domain;
 import lombok.Data;
 
 @Data
-public class billVO {
+public class BillVO {
 
 	/* 결제 table */
 	
@@ -32,7 +32,7 @@ public class billVO {
 	private String stmtSndMtd;
 
 	/* 청구서사절구분(1:청구서 사절) */
-	private String stmtDentClas;
+	private String stmtDeniClas;
 
 	/* 청구지우편번호 */
 	private String billZip;

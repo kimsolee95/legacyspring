@@ -3,7 +3,7 @@ package com.card.domain;
 import lombok.Data;
 
 @Data
-public class rcvapplVO {
+public class RcvapplVO {
 
 	/* 신청 table */
 	

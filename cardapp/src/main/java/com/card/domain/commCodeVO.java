@@ -3,7 +3,7 @@ package com.card.domain;
 import lombok.Data;
 
 @Data
-public class commCodeVO {
+public class CommCodeVO {
 
 	/*공통코드 table*/
 	

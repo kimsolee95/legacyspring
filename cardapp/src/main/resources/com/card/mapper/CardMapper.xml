@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.card.mapper.CardMapper">
+
+	<insert id="insertRcvappl" parameterType="com.card.domain.RcvapplVO">
+		INSERT INTO RCVAPPL (
+			SSN 
+			, RCV_D 
+			, RCV_SEQ_NO 
+			, APPL_D 
+			, BIRTH_D 
+			, HG_NM 
+			, ENG_NM 
+			, STL_MTD 
+			, STL_ACT 
+			, BNK_CD 
+			, STL_DD
+			, MGT_BBRN
+			, APPL_CLAS
+			, STMT_SND_MTD
+			, BILLADR_ADR1
+			, BILLADR_ADR2
+			, BILLADR_ZIP
+			, HDP_NO
+			, BRD
+			, SCRT_NO
+			, EMAIL_ADR
+			, CRD_NO
+			, IMPSB_CLAS
+			, IMPSB_CD
+			, LST_OPR_TM
+			, LST_OPR_D
+			, LST_OPRT_EMPNO
+		) VALUES ( 
+			#{ssn} 
+			, #{rcvD} 
+			, #{rcvSeqNo} 
+			, #{applD} 
+			, #{birthD} 
+			, #{hgNm} 
+			, #{engNm} 
+			, #{stlMtd} 
+			, #{stlAct} 
+			, #{bnkCd}
+			, #{stlDd}
+			, #{mgtBbrn}
+			, #{applClas}
+			, #{stmtSndMtd}
+			, #{billadrAdr1}
+			, #{billadrAdr2}
+			, #{billadrZip}
+			, #{hdpNo}
+			, #{brd}
+			, #{scrtNo}
+			, #{emailAdr}
+			, #{crdNo}
+			, #{impsbClas}
+			, #{impsbCd}
+			, #{lstOprTm}
+			, TO_CHAR(sysdate, 'YYYYMMDD') 
+			, #{lstOprtEmpno}
+		)
+	</insert>
+
+	<insert id="insertCust" parameterType="com.card.domain.CustVO">
+		<selectKey resultType="string" keyProperty="custNo" order="AFTER">
+			SELECT CUST_NO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CUST (
+			CUST_NO
+			, SSN
+			, REG_D
+			, HG_NM
+			, BIRTH_D
+			, HDP_NO
+			, LST_OPR_TM
+			, LST_OPR_D
+			, LST_OPRT_EMPNO
+		) VALUES (
+			CUST_NO.NEXTVAL
+			, #{ssn}
+			, #{regD}
+			, #{hgNm}
+			, #{birthD}
+			, #{hdpNo}
+			, #{lstOprTm}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
+			, #{lstOprtEmpno}
+		)
+	</insert>
+
+	<insert id="insertBill" parameterType="com.card.domain.BillVO">
+		INSERT INTO BILL (
+			CUST_NO
+			, STL_ACT
+			, BNK_CD
+			, DPS_NM
+			, STL_MTD
+			, STL_DD
+			, PRCS_CLAS
+			, STMT_SND_MTD
+			, STMT_DENI_CLAS
+			, BILL_ZIP
+			, BILL_ADR1
+			, BILL_ADR2
+			, EMAIL_ADR
+			, LST_OPR_TM
+			, LST_OPR_D
+			, LST_OPRT_EMPNO
+		) VALUES (
+			#{custNo}
+			, #{stlAct}
+			, #{bnkCd}
+			, #{dpsNm}
+			, #{stlMtd}
+			, #{stlDd}
+			, #{prcsClas}
+			, #{stmtSndMtd}
+			, #{stmtDeniClas}
+			, #{billZip}
+			, #{billAdr1}
+			, #{billAdr2}
+			, #{emailAdr}
+			, #{lstOprTm}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
+			, #{lstOprtEmpno}
+		)
+	</insert>
+
+	<insert id="insertCrd" parameterType="com.card.domain.CrdVO">
+		INSERT INTO CRD (
+			CRD_NO
+			, CUST_NO
+			, MGT_BBRN
+			, REG_D
+			, SSN
+			, VLD_DUR
+			, BRD
+			, SCRT_NO
+			, ENG_NM
+			, BF_CRD_NO
+			, LST_CRD_F
+			, FST_REG_D
+			, CRD_GRD
+			, LST_OPR_TM
+			, LST_OPR_D
+			, LST_OPRT_EMPNO
+		) VALUES (
+			CRD_NO.NEXTVAL
+			, #{custNo}
+			, #{mgtBbrn}
+			, #{regD}
+			, #{ssn}
+			, #{vldDur}
+			, #{brd}
+			, #{scrtNo}
+			, #{engNm}
+			, #{bfCrdNo}
+			, #{lstCrdF}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
+			, #{crdGrd}
+			, #{lstOprTm}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
+			, #{lstOprtEmpno}
+		)
+	</insert>
+
+</mapper>
