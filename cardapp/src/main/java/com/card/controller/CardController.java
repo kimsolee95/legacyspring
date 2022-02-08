@@ -27,7 +27,7 @@ public class CardController {
 	
 	@PostMapping("/signup")
 	public String signup(RcvapplVO rcvappl) {
-		cardService.cardRegister(rcvappl);
+		cardService.signup(rcvappl);
 		return "redirect:/card/signup";
 	}
 
