@@ -5,7 +5,7 @@
 
 <mapper namespace="com.card.mapper.CardMapper">
 
-	<insert id="insertRcvappl" parameterType="com.test.domain.RcvapplVO">
+	<insert id="insertRcvappl" parameterType="com.card.domain.RcvapplVO">
 		INSERT INTO RCVAPPL (
 			SSN 
 			, RCV_D 
@@ -65,7 +65,7 @@
 		)
 	</insert>
 
-	<insert id="insertCust" parameterType="com.test.domain.CustVO">
+	<insert id="insertCust" parameterType="com.card.domain.CustVO">
 		<selectKey resultType="string" keyProperty="custNo" order="AFTER">
 			SELECT CUST_NO.CURRVAL FROM DUAL
 		</selectKey>
@@ -92,7 +92,7 @@
 		)
 	</insert>
 
-	<insert id="insertBill" parameterType="com.test.domain.BillVO">
+	<insert id="insertBill" parameterType="com.card.domain.BillVO">
 		INSERT INTO BILL (
 			CUST_NO
 			, STL_ACT
@@ -130,7 +130,7 @@
 		)
 	</insert>
 
-	<insert id="insertCrd" parameterType="com.test.domain.CrdVO">
+	<insert id="insertCrd" parameterType="com.card.domain.CrdVO">
 		INSERT INTO CRD (
 			CRD_NO
 			, CUST_NO
@@ -168,7 +168,7 @@
 		)
 	</insert>
 	
-	<select id="sameDayCheck" parameterType="com.test.domain.RcvapplVO" resultType="int">
+	<select id="sameDayCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
 		SELECT 
 		COUNT(RCV_SEQ_NO)
 		FROM RCVAPPL
@@ -178,7 +178,7 @@
 		AND BRD = #{brd}
 	</select>
 	
-	<select id="existingCardCheck" parameterType="com.test.domain.RcvapplVO" resultType="int">
+	<select id="existingCardCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
 		SELECT 
 			COUNT(CR.CRD_NO)
 		FROM
@@ -189,7 +189,7 @@
 		AND CR.BRD = #{brd}	
 	</select>
 	
-	<select id="repeatRegisterCardCheck" parameterType="com.test.domain.RcvapplVO" resultType="int">
+	<select id="repeatRegisterCardCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
 		SELECT 
 			COUNT(CR.CRD_NO)
 		FROM
@@ -199,7 +199,7 @@
 		WHERE CU.SSN = #{ssn}
 	</select>
 	
-	<select id="findCustNoBySsn" parameterType="com.test.domain.RcvapplVO" resultType="string">
+	<select id="findCustNoBySsn" parameterType="com.card.domain.RcvapplVO" resultType="string">
 		SELECT 
 			CUST_NO
 		FROM CUST 
@@ -216,7 +216,7 @@
 		AND CR.BRD = #{brd}
 	</select>
 	
-	<update id="existCardStatusUpdate" parameterType="com.test.domain.CrdVO">
+	<update id="existCardStatusUpdate" parameterType="com.card.domain.CrdVO">
 		UPDATE CRD SET
 		    LST_CRD_F = ''
 		    , LST_OPR_D = TO_CHAR(sysdate, 'YYYYMMDD')
