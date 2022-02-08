@@ -1,5 +1,12 @@
 package com.card.service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 import com.card.domain.BillVO;
@@ -73,11 +80,18 @@ public class CardServiceImpl implements CardService{
 				//1-4. crd insert
 				CrdVO crd = new CrdVO();
 				String crdNo = makeCardNo(rcvappl);
+				String expirationDate = "";
+				try {
+					expirationDate = makeExpirationDate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				crd.setCrdNo(crdNo); //카드번호 앞자리 set
 				crd.setCustNo(cust.getCustNo()); //확인 필수
 				crd.setMgtBbrn(rcvappl.getMgtBbrn());
 				crd.setSsn(rcvappl.getSsn());
-				//crd.setVldDur(rcvappl); --5년 추가하는 것 코드 나중에 추가 필요
+				crd.setVldDur(expirationDate); 
 				crd.setBrd(rcvappl.getBrd());
 				crd.setScrtNo(rcvappl.getScrtNo());
 				crd.setEngNm(rcvappl.getEngNm());
@@ -99,11 +113,18 @@ public class CardServiceImpl implements CardService{
 				//custNo는 고객 table에서 찾아와서 setting 한다.
 				String custNo = cardMapper.findCustNoBySsn(rcvappl);
 				String crdNo = makeCardNo(rcvappl);
+				String expirationDate = "";
+				try {
+					expirationDate = makeExpirationDate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				crd.setCrdNo(crdNo); //카드번호 앞자리 set
 				crd.setCustNo(custNo);
 				crd.setMgtBbrn(rcvappl.getMgtBbrn());
 				crd.setSsn(rcvappl.getSsn());
-				//crd.setVldDur(rcvappl); --5년 추가하는 것 코드 나중에 추가 필요
+				crd.setVldDur(expirationDate);
 				crd.setBrd(rcvappl.getBrd());
 				crd.setScrtNo(rcvappl.getScrtNo());
 				crd.setEngNm(rcvappl.getEngNm());
@@ -127,11 +148,18 @@ public class CardServiceImpl implements CardService{
 				String custNo = cardMapper.findCustNoBySsn(rcvappl);
 				String originalCardNo = cardMapper.findOriginalCardNo(rcvappl);
 				String crdNo = makeCardNo(rcvappl);
+				String expirationDate = "";
+				try {
+					expirationDate = makeExpirationDate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				crd.setCrdNo(crdNo); //카드번호 앞자리 set
 				crd.setCustNo(custNo);
 				crd.setMgtBbrn(rcvappl.getMgtBbrn());
 				crd.setSsn(rcvappl.getSsn());
-				//crd.setVldDur(rcvappl); --5년 추가하는 것 코드 나중에 추가 필요
+				crd.setVldDur(expirationDate);
 				crd.setBrd(rcvappl.getBrd());
 				crd.setScrtNo(rcvappl.getScrtNo());
 				crd.setEngNm(rcvappl.getEngNm());
@@ -208,6 +236,17 @@ public class CardServiceImpl implements CardService{
 		
 		
 		return crdNo;
+	}
+	
+	public String makeExpirationDate() throws Exception {
+		
+		LocalDateTime now = LocalDateTime.now(); //JAVA 8의 현재 시간 구하기
+		LocalDateTime fiveYearsAfter = now.plusYears(5); //카드 유효기간인 등록시점 + 5년 더하기
+		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMM"); //DB 저장될 char6의 형식
+		String expirationDate = fiveYearsAfter.format(dateTimeFormatter);
+		
+		return expirationDate;
 	}
 
 }

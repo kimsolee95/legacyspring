@@ -35,8 +35,8 @@
 			, LST_OPR_D
 			, LST_OPRT_EMPNO
 		) VALUES ( 
-			#{ssn} 
-			, #{rcvD} 
+			#{ssn}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
 			, RCV_SEQ_NO.NEXTVAL 
 			, #{applD} 
 			, #{birthD} 
@@ -60,7 +60,7 @@
 			, #{impsbClas}
 			, #{impsbCd}
 			, #{lstOprTm}
-			, TO_CHAR(sysdate, 'YYYYMMDD') 
+			, TO_CHAR(sysdate, 'YYYYMMDD')
 			, #{lstOprtEmpno}
 		)
 	</insert>
@@ -152,7 +152,7 @@
 			#{crdNo} || LPAD(CRD_NO.NEXTVAL,9,0) || '0'
 			, #{custNo}
 			, #{mgtBbrn}
-			, #{regD}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
 			, #{ssn}
 			, #{vldDur}
 			, #{brd}
