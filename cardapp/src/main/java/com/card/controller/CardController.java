@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.card.domain.RcvapplVO;
 import com.card.service.CardService;
+import com.card.service.CommCodeService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class CardController {
 	
-	CardService cardService;
+	private CardService cardService;
+	private CommCodeService commCodeService;
 	
 	@GetMapping("/signup")
 	public void signup(Model model) {
-		//todo:  공통 코드 입력박스 사용 시, 뿌릴 data 가져오기
+
+		model.addAttribute("applClasCode", commCodeService.selectApplClasCode());
+		model.addAttribute("brdCode", commCodeService.selectBrdCode());
+		model.addAttribute("stlDdCode", commCodeService.selectStlDdCode());
+		model.addAttribute("stlMtdCode", commCodeService.selectStlMtdCode());
+		model.addAttribute("bnkCdCode", commCodeService.selectBnkCdCode());
+		model.addAttribute("stmtSndMtdCode", commCodeService.selectStmtSndMtdCode());
 	}
 	
 	@PostMapping("/signup")

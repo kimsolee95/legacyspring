@@ -131,6 +131,9 @@
 	</insert>
 
 	<insert id="insertCrd" parameterType="com.card.domain.CrdVO">
+		<selectKey resultType="string" keyProperty="crdNo" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO CRD (
 			CRD_NO
 			, CUST_NO
@@ -218,9 +221,99 @@
 	
 	<update id="existCardStatusUpdate" parameterType="com.card.domain.CrdVO">
 		UPDATE CRD SET
-		    LST_CRD_F = ''
-		    , LST_OPR_D = TO_CHAR(sysdate, 'YYYYMMDD')
+			LST_CRD_F = ''
+			, LST_OPR_D = TO_CHAR(sysdate, 'YYYYMMDD')
 		WHERE CRD_NO = #{bfCrdNo}
+	</update>
+
+	<select id="selectRecentRcvappl" parameterType="com.card.domain.RcvapplVO" resultType="com.card.domain.RcvapplVO">
+		
+		SELECT 
+			T.*
+		FROM (
+			SELECT
+				SSN
+				, RCV_D
+				, RCV_SEQ_NO
+				, APPL_D
+				, BIRTH_D
+				, HG_NM
+				, ENG_NM
+				, STL_MTD
+				, STL_ACT
+				, BNK_CD
+				, STL_DD
+				, MGT_BBRN
+				, APPL_CLAS
+				, STMT_SND_MTD
+				, BILLADR_ADR1
+				, BILLADR_ADR2
+				, BILLADR_ZIP
+				, HDP_NO
+				, BRD
+				, SCRT_NO
+				, EMAIL_ADR
+				, CRD_NO
+				, IMPSB_CLAS
+				, IMPSB_CD
+				, LST_OPR_TM
+				, LST_OPR_D
+				, LST_OPRT_EMPNO
+			FROM RCVAPPL
+			<where>
+				<if test="ssn != null and ssn != ''">
+					SSN = #{ssn}
+				</if>
+				<if test="rcvD != null and rcvD != ''">
+					AND RCV_D = #{rcvD}
+				</if>
+				<if test="rcvSeqNo != null and rcvSeqNo != ''">
+					AND RCV_SEQ_NO = #{rcvSeqNo}
+				</if>
+			</where>
+			ORDER BY RCV_D DESC
+		) T
+		WHERE ROWNUM = 1
+	</select>
+
+	<select id="selectRcvapplByPeriod" parameterType="com.card.domain.RcvapplVO" resultType="com.card.domain.RcvapplVO">
+		SELECT 
+			RCV_D
+			, RCV_SEQ_NO
+			, SSN
+			, HG_NM
+			, ENG_NM
+			, APPL_CLAS
+			, BRD
+			, HDP_NO
+			, IMPSB_CLAS
+			, IMPSB_CD
+		FROM RCVAPPL
+		<where>
+			<if test="rcvD != null and rcvD != ''">
+				RCV_D BETWEEN TO_DATE(#{rcvD}, 'YYYYMMDD') AND TO_DATE(#{rcvD} || ' 23:59:59', 'YYYYMMDD HH24:MI:SS')
+			</if>
+			<if test="applClas != null and applClas != ''">
+				AND APPL_CLAS = #{applClas}
+			</if>
+			<if test="ssn != null and ssn != ''">
+				AND SSN = #{ssn}
+			</if>
+		</where>
+	</select>
+	<!--
+	<select id="selectCardListBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CrdVO">
+		
+	</select>
+	 -->
+	<update id="updateCrdNoInRcvappl" parameterType="com.card.domain.CrdVO">
+		UPDATE RCVAPPL SET
+			CRD_NO = #{crdNo}
+		WHERE CRD_NO = #{bfCrdNo}
+		AND SSN = #{ssn}
+		AND SCRT_NO = #{scrtNo}
+		AND BRD = #{brd}
+		AND RCV_D = #{fstRegD}
 	</update>
 
 </mapper>

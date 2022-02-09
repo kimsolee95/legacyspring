@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.card.mapper.CommCodeMapper">
+
+	<select id="selectApplClasCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C007'
+	</select>
+	
+	<select id="selectBrdCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C004'
+	</select>
+	
+	<select id="selectStlDdCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C009'
+	</select>
+	
+	<select id="selectStlMtdCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C002'
+	</select>
+
+	<select id="selectBnkCdCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C003'
+	</select>
+	
+	<select id="selectStmtSndMtdCode" resultType="com.card.domain.CommCodeDtlVO">
+		SELECT 
+			GROUP_CD
+			, GROUP_NM
+			, CODE
+			, CODE_NM
+		FROM COMM_CODE_DTL
+		WHERE GROUP_CD = 'C006'
+	</select>
+
+</mapper>

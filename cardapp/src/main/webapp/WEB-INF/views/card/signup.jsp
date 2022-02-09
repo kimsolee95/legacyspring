@@ -12,13 +12,16 @@
 		    <label for="inputEmail4" class="form-label">주민번호</label>
 		    <input type="text" class="form-control" id="ssn" name="ssn">
 		  </div>
-		  <div class="col-md-4">
+		  <div class="col-md-3">
 		    <label for="inputPassword4" class="form-label">접수일자</label>
 		    <input type="text" class="form-control" id="rcvD" name="rcvD">
 		  </div>
-		  <div class="col-md-4">
+		  <div class="col-md-3">
 		    <label for="inputAddress" class="form-label">접수 일련번호</label>
 		    <input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo">
+		  </div>
+		  <div class="col-md-2">
+			<button type="button" class="btn btn-info">검색</button>
 		  </div>
 
 
@@ -29,11 +32,25 @@
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputPassword4" class="form-label">신청구분</label>
-		    <input type="text" class="form-control" id="applClas" name="applClas">
+			<select name="applClas">
+			<c:forEach items="${applClasCode}" var="applClasCode" varStatus="status2">
+				<option value="<c:out value="${applClasCode.code}"/>">
+					<c:out value="${applClasCode.codeNm}"/>
+				</option>
+			</c:forEach>
+			</select>
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputAddress" class="form-label">브랜드</label>
-		    <input type="text" class="form-control" id="brd" name="brd" placeholder="1234 Main St">
+		    
+			<select name="brd">
+			<c:forEach items="${brdCode}" var="brdCode" varStatus="status2">
+				<option value="<c:out value="${brdCode.code}"/>">
+					<c:out value="${brdCode.codeNm}"/>
+				</option>
+			</c:forEach>
+			</select>
+			
 		  </div>
 
 
@@ -55,15 +72,39 @@
 
 		  <div class="col-md-4">
 		    <label for="inputEmail4" class="form-label">결제일자</label>
-		    <input type="text" class="form-control" id="stlDd" name="stlDd">
+
+			<select name=stlDd>
+			<c:forEach items="${stlDdCode}" var="stlDdCode" varStatus="status2">
+				<option value="<c:out value="${stlDdCode.code}"/>">
+					<c:out value="${stlDdCode.codeNm}"/>
+				</option>
+			</c:forEach>
+			</select>
+		    
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputPassword4" class="form-label">결제방법</label>
-		    <input type="text" class="form-control" id="stlMtd" name="stlMtd">
+		    
+			<select name="stlMtd">
+			<c:forEach items="${stlMtdCode}" var="stlMtdCode" varStatus="status2">
+				<option value="<c:out value="${stlMtdCode.code}"/>">
+					<c:out value="${stlMtdCode.codeNm}"/>
+				</option>
+			</c:forEach>
+			</select>
+		    
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputAddress" class="form-label">결제은행</label>
-		    <input type="text" class="form-control" id="bnkCd" name="bnkCd" placeholder="1234 Main St">
+		    
+			<select name="bnkCd">
+			<c:forEach items="${bnkCdCode}" var="bnkCdCode" varStatus="status2">
+				<option value="<c:out value="${bnkCdCode.code}"/>">
+					<c:out value="${bnkCdCode.codeNm}"/>
+				</option>
+			</c:forEach>
+			</select>
+		    
 		  </div>
 
 
@@ -81,7 +122,15 @@
 			
 			<div class="row col-md-5">
 		    	<label for="inputAddress" class="form-label">청구서 발송방법</label>
-		    	<input type="text" class="form-control" id="stmtSndMtd" name="stmtSndMtd" placeholder="1234 Main St">
+			
+				<select name="stmtSndMtd">
+				<c:forEach items="${stmtSndMtdCode}" var="stmtSndMtdCode" varStatus="status2">
+					<option value="<c:out value="${stmtSndMtdCode.code}"/>">
+						<c:out value="${stmtSndMtdCode.codeNm}"/>
+					</option>
+				</c:forEach>
+				</select>
+			
 			</div>
 			<div class="row col-md-6">
 		    	<label for="inputAddress" class="form-label">우편번호</label>
@@ -121,7 +170,6 @@
 		    	<input type="text" class="form-control" placeholder="1234 Main St">
 			</div>	
 
-
 		  <div class="buttons">
 		    <button type="submit" class="btn btn-primary">등록</button>
 		    <button type="submit" class="btn btn-primary">수정</button>
@@ -132,12 +180,12 @@
 </div>
 
 <script>
-
+ 
+ 
  
 </script>
 
 <style>
-
 	.card-signup-form {
 		margin: 50px auto;
 		border: 5px solid #EEE;
@@ -156,5 +204,4 @@
 		width: 800px;
 		
 	}
-
 </style>

@@ -45,9 +45,6 @@ public class CardServiceImpl implements CardService{
 				//1-1. rcvappl insert
 				//todo: 정상등록일 경우, 카드번호 setting
 				
-				//if ("1".equals(rcvappl.getBrd())) {
-				//	String crdNo = "531011";
-				//}
 				cardMapper.insertRcvappl(rcvappl);
 				
 				//1-2. cust insert
@@ -97,15 +94,14 @@ public class CardServiceImpl implements CardService{
 				crd.setEngNm(rcvappl.getEngNm());
 				crd.setLstCrdF("1");
 				crd.setCrdGrd("1"); //카드 등급 일반 통일 -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
-				result += cardMapper.insertCrd(crd);
+				result += cardMapper.insertCrd(crd); 
+				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
+				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 				
 			} else if ("12".equals(rcvappl.getApplClas())) { //12: 추가신규의 경우
+				
 				//2-1. rcvappl insert
 				//todo: 정상등록일 경우, 카드번호 setting
-				
-				//if ("1".equals(rcvappl.getBrd())) {
-				//	String crdNo = "531011";
-				//}
 				cardMapper.insertRcvappl(rcvappl);
 
 				//2-2. crd insert
@@ -131,15 +127,13 @@ public class CardServiceImpl implements CardService{
 				crd.setLstCrdF("1"); //현재 등록하는 카드가 최종 카드가 되어야 함.
 				crd.setCrdGrd("1"); //카드 등급은 일반으로 통일  -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
 				int result = cardMapper.insertCrd(crd); //새 카드 값을 insert
-				
+				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
+				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 				
 			} else if ("21".equals(rcvappl.getApplClas())) { //21: 재발급의 경우
+				
 				//2-1. rcvappl insert
 				//todo: 정상등록일 경우, 카드번호 setting
-				
-				//if ("1".equals(rcvappl.getBrd())) {
-				//	String crdNo = "531011";
-				//}
 				cardMapper.insertRcvappl(rcvappl);
 
 				//2-2. crd insert
@@ -168,12 +162,13 @@ public class CardServiceImpl implements CardService{
 				crd.setCrdGrd("1"); //카드 등급은 일반으로 통일  -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
 				int result = cardMapper.insertCrd(crd); //재발급카드 insert
 				result += cardMapper.existCardStatusUpdate(crd); //존재하는 카드 최종상태를 ""로 update
+				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
+				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 			}
 			
 		} else {
 			//불능 case
 			//1-1. rcvappl insert 해당 table만 집어넣기
-			//rcvappl.setImpsbClas("1"); //불능구분 flag 일괄 세팅
 			cardMapper.insertRcvappl(rcvappl);
 		}
 		
@@ -196,7 +191,7 @@ public class CardServiceImpl implements CardService{
 		int sameDayCount = cardMapper.sameDayCheck(rcvappl);
 		if (sameDayCount > 0) {
 			rcvappl.setImpsbCd("01"); //당일신청내역 존재
-			rcvappl.setApplClas("1"); //불능 flag
+			rcvappl.setImpsbClas("1"); //불능 flag
 			return rcvappl;
 		}
 		
@@ -206,7 +201,7 @@ public class CardServiceImpl implements CardService{
 			int existingCardCount = cardMapper.existingCardCheck(rcvappl);
 			if (existingCardCount > 0) {
 				rcvappl.setImpsbCd("04"); //기존카드 존재
-				rcvappl.setApplClas("1"); //불능 flag
+				rcvappl.setImpsbClas("1"); //불능 flag
 			}
 		}
 		
@@ -215,7 +210,7 @@ public class CardServiceImpl implements CardService{
 			int repeatCardCheckCount = cardMapper.repeatRegisterCardCheck(rcvappl);
 			if (repeatCardCheckCount < 1) { //1개 이상 원카드가 있어야 함.
 				rcvappl.setImpsbCd("05"); //재발급인데 기존 카드가 미존재.
-				rcvappl.setApplClas("1"); //불능 flag
+				rcvappl.setImpsbClas("1"); //불능 flag
 			}
 		}
 		
@@ -233,7 +228,6 @@ public class CardServiceImpl implements CardService{
 		} else if ("3".equals(rcvappl.getBrd())) { //JCB
 			crdNo = "356011";
 		}
-		
 		
 		return crdNo;
 	}
