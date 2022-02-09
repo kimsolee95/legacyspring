@@ -96,7 +96,8 @@ public class CardServiceImpl implements CardService{
 				crd.setCrdGrd("1"); //카드 등급 일반 통일 -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
 				result += cardMapper.insertCrd(crd); 
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
-				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
+				crd.setRcvSeqNo(rcvappl.getRcvSeqNo());
+				result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 				
 			} else if ("12".equals(rcvappl.getApplClas())) { //12: 추가신규의 경우
 				
@@ -128,7 +129,8 @@ public class CardServiceImpl implements CardService{
 				crd.setCrdGrd("1"); //카드 등급은 일반으로 통일  -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
 				int result = cardMapper.insertCrd(crd); //새 카드 값을 insert
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
-				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
+				crd.setRcvSeqNo(rcvappl.getRcvSeqNo());
+				result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 				
 			} else if ("21".equals(rcvappl.getApplClas())) { //21: 재발급의 경우
 				
@@ -163,7 +165,8 @@ public class CardServiceImpl implements CardService{
 				int result = cardMapper.insertCrd(crd); //재발급카드 insert
 				result += cardMapper.existCardStatusUpdate(crd); //존재하는 카드 최종상태를 ""로 update
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
-				//result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
+				crd.setRcvSeqNo(rcvappl.getRcvSeqNo());
+				result += cardMapper.updateCrdNoInRcvappl(crd); //crdNo crdNo selectKey로 넘기기
 			}
 			
 		} else {

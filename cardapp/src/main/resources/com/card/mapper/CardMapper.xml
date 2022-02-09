@@ -6,6 +6,9 @@
 <mapper namespace="com.card.mapper.CardMapper">
 
 	<insert id="insertRcvappl" parameterType="com.card.domain.RcvapplVO">
+		<selectKey resultType="string" keyProperty="rcvSeqNo" order="AFTER">
+			SELECT RCV_SEQ_NO.CURRVAL FROM DUAL
+		</selectKey>	
 		INSERT INTO RCVAPPL (
 			SSN 
 			, RCV_D 
@@ -132,7 +135,9 @@
 
 	<insert id="insertCrd" parameterType="com.card.domain.CrdVO">
 		<selectKey resultType="string" keyProperty="crdNo" order="AFTER">
-			SELECT LAST_INSERT_ID()
+			SELECT
+				#{crdNo} || LPAD(CRD_NO.CURRVAL,9,0) || '0' as crdNo
+			FROM DUAL
 		</selectKey>
 		INSERT INTO CRD (
 			CRD_NO
@@ -173,7 +178,7 @@
 	
 	<select id="sameDayCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
 		SELECT 
-		COUNT(RCV_SEQ_NO)
+			COUNT(RCV_SEQ_NO)
 		FROM RCVAPPL
 		WHERE SSN = #{ssn}
 		AND RCV_D = #{rcvD}
@@ -227,7 +232,6 @@
 	</update>
 
 	<select id="selectRecentRcvappl" parameterType="com.card.domain.RcvapplVO" resultType="com.card.domain.RcvapplVO">
-		
 		SELECT 
 			T.*
 		FROM (
@@ -309,11 +313,11 @@
 	<update id="updateCrdNoInRcvappl" parameterType="com.card.domain.CrdVO">
 		UPDATE RCVAPPL SET
 			CRD_NO = #{crdNo}
-		WHERE CRD_NO = #{bfCrdNo}
+		WHERE CRD_NO IS NULL
 		AND SSN = #{ssn}
 		AND SCRT_NO = #{scrtNo}
 		AND BRD = #{brd}
-		AND RCV_D = #{fstRegD}
+		AND RCV_SEQ_NO = #{rcvSeqNo}
 	</update>
 
 </mapper>

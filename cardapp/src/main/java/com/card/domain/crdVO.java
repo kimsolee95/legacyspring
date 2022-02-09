@@ -55,4 +55,7 @@ public class CrdVO {
 
 	/* 최종작업자사번 */
 	private String lstOprtEmpno;
+	
+	/* rcvSeqNo 해당 카드 신청 시, 신청서 접수 일련번호 -> 신청서 내 카드번호 update시 사용 */
+	private String rcvSeqNo;
 }
