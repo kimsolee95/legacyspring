@@ -6,13 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.card.domain.BillVO;
+import com.card.domain.CardListBySsnCrdNoDTO;
 import com.card.domain.CrdVO;
+import com.card.domain.CustIndexListDTO;
 import com.card.domain.CustVO;
 import com.card.domain.RcvapplVO;
+import com.card.domain.SearchKeywordDTO;
 import com.card.mapper.CardMapper;
 
 import lombok.AllArgsConstructor;
@@ -33,7 +37,7 @@ public class CardServiceImpl implements CardService{
 		//불능 검사 메서드 호출 
 		boolean isRcvapplActive = true;
 		rcvappl = checkRcvapplPossible(rcvappl);
-		
+
 		if ("1".equals(rcvappl.getImpsbClas())) { //불능 검사 후, 불능 구분코드에 1 세팅되면 불능임.
 			isRcvapplActive = false;
 		}
@@ -246,4 +250,34 @@ public class CardServiceImpl implements CardService{
 		return expirationDate;
 	}
 
+	@Override
+	public RcvapplVO selectRecentRcvappl(RcvapplVO rcvappl) { 
+		//회원 입회신청 검색 시, 가장 최근 입회신청서 select 
+		return cardMapper.selectRecentRcvappl(rcvappl);
+	}
+
+	@Override
+	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(CrdVO crd) {
+		// 소지 카드내역 조회 ( 주민번호, 카드로 카드목록 조회 )
+		return cardMapper.selectCardListBySsnCrdNo(crd);
+	}
+
+	@Override
+	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword) {
+		//기간별 입회신청 내역조회 시, 입회신청 목록 select 
+		return cardMapper.selectRcvapplByPeriod(searchKeyword);
+	}
+
+	@Override
+	public List<CustIndexListDTO> custIndexSelect(CustVO cust) {
+		/* 회원 색인 조회 */
+		return cardMapper.custIndexSelect(cust);
+	}
+
+	@Override
+	public CrdVO selectCardDtlBySsnCrdNo(CrdVO crd) {
+		//카드 상세 조회 
+		return cardMapper.selectCardDtlBySsnCrdNo(crd);
+	}
+	
 }

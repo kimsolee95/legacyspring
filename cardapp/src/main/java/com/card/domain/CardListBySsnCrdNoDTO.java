@@ -3,8 +3,7 @@ package com.card.domain;
 import lombok.Data;
 
 @Data
-public class CrdVO {
-	
+public class CardListBySsnCrdNoDTO extends RcvapplVO {
 	/* 카드 table */
 	
 	/* 카드번호, 브랜드4자리  + 등급2자리 + 일련번호 9자리 + 체크디지트(1자리), 등급은 일반 11,우량 21 ,골드 31
@@ -61,7 +60,4 @@ public class CrdVO {
 
 	/* 최종작업자사번 */
 	private String lstOprtEmpno;
-	
-	/* rcvSeqNo 해당 카드 신청 시, 신청서 접수 일련번호 -> 신청서 내 카드번호 update시 사용 */
-	private String rcvSeqNo;
 }

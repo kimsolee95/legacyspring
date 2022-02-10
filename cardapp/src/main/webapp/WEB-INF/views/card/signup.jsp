@@ -6,8 +6,10 @@
 
 <div class="container">
 	<div class="card-signup-form">
-		<form class="row g-3" role="form" id="frm" name="frm" action="/card/signup" method="post">
 		
+		
+		
+		<form class="row g-3" id="operForm"> <!-- operForm  action="/card/recentrcvappl" method="get" -->
 		  <div class="col-md-4">
 		    <label for="inputEmail4" class="form-label">주민번호</label>
 		    <input type="text" class="form-control" id="ssn" name="ssn">
@@ -21,11 +23,15 @@
 		    <input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo">
 		  </div>
 		  <div class="col-md-2">
-			<button type="button" class="btn btn-info">검색</button>
+			<!--<button data-oper='search' class="btn btn-info">검색</button> -->
+			<button type="submit" formaction="/card/recentrcvappl" formmethod="get" class="btn btn-info">검색</button>
 		  </div>
+		<!-- 
+		</form>
 
 
-
+		<form class="row g-3" role="form" id="frm" name="frm" action="/card/signup" method="post">
+		-->
 		  <div class="col-md-4">
 		    <label for="inputEmail4" class="form-label">신청일자</label>
 		    <input type="text" class="form-control" id="applD" name="applD">
@@ -171,18 +177,33 @@
 			</div>	
 
 		  <div class="buttons">
-		    <button type="submit" class="btn btn-primary">등록</button>
-		    <button type="submit" class="btn btn-primary">수정</button>
-		    <button type="submit" class="btn btn-primary">초기화</button>
+		  <!-- data-oper='insert'  -->
+		    <button type="submit" formaction="/card/signup" formmethod="post"  class="btn btn-primary">등록</button>
+		    <button type="button" class="btn btn-primary">수정</button>
+		    <button type="button" class="btn btn-primary">초기화</button>
 		  </div>
 		</form>
 	</div>
 </div>
 
 <script>
- 
- 
- 
+/* 
+$(document).ready(function() {
+	
+	var operForm = $("#operForm");
+	
+	$("button[data-oper='insert']").on("click", function(e) { //등록 버튼 클릭 이벤트 발생시,
+		operForm.attr("action", "/card/signup").attr.("method", "get");
+		operForm.submit();
+	});
+	
+	$("button[data-oper='search']").on("click", function(e) { //검색 버튼 클릭 이벤트 발생시,
+		operForm.attr("action", "/card/recentrcvappl");
+		operForm.submit();
+	})
+	
+});
+ */
 </script>
 
 <style>

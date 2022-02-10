@@ -30,6 +30,9 @@ public class RcvapplVO {
 	
 	/* 결제 방법, 1.지로 2,자동이체 3.CMS */
 	private String stlMtd;
+
+	/* 결제 방법명, 1.지로 2,자동이체 3.CMS */
+	private String stlMtdNm;
 	
 	/* 결제계좌, 결제방법이 1.지로인경우에는 등록안해도 관계없음 */
 	private String stlAct;
@@ -37,8 +40,14 @@ public class RcvapplVO {
 	/* 결제은행(은행코드 참조),  결제방법이 1.지로인경우에는 등록안해도 관계없음 */
 	private String bnkCd;
 	
+	/* 결제은행명(은행코드 참조),  결제방법이 1.지로인경우에는 등록안해도 관계없음 */
+	private String bnkCdNm;	
+	
 	/* 결제일자, 말일자는 99로 등록 */
 	private String stlDd;
+
+	/* 결제일자명, 말일자는 99로 등록 */
+	private String stlDdNm;	
 	
 	/* 관리영업점(영업점테이블 참조 */
 	private String mgtBbrn;
@@ -48,6 +57,9 @@ public class RcvapplVO {
 	
 	/* 청구서발송방법(1:우편 2:E-MAIL 3:청구서사절) */
 	private String stmtSndMtd;
+	
+	/* 청구서발송방법명 (1:우편 2:E-MAIL 3:청구서사절) */
+	private String stmtSndMtdNm;	
 	
 	/* 청구지부속주소1, 청구서발송방법이 "1"우편인경우 필수 입력 */
 	private String billadrAdr1;
@@ -63,6 +75,9 @@ public class RcvapplVO {
 
 	/* 브랜드(1:MASTER 2.VISA 3.JCB) */
 	private String brd;
+	
+	/* 브랜드명 (1:MASTER 2.VISA 3.JCB) */
+	private String brdNm;	
 
 	/* 비밀번호 */
 	private String scrtNo;

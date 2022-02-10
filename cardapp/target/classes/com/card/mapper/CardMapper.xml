@@ -177,13 +177,14 @@
 	</insert>
 	
 	<select id="sameDayCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
-		SELECT 
+		SELECT
 			COUNT(RCV_SEQ_NO)
 		FROM RCVAPPL
 		WHERE SSN = #{ssn}
 		AND RCV_D = #{rcvD}
 		AND APPL_CLAS = #{applClas}
 		AND BRD = #{brd}
+		AND IMPSB_CLAS IS NULL
 	</select>
 	
 	<select id="existingCardCheck" parameterType="com.card.domain.RcvapplVO" resultType="int">
@@ -245,25 +246,25 @@
 				, ENG_NM
 				, STL_MTD
 				, STL_ACT
-				, BNK_CD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.BNK_CD = CD.CODE AND CD.GROUP_CD = 'C003') AS BNK_CD
 				, STL_DD
 				, MGT_BBRN
 				, APPL_CLAS
-				, STMT_SND_MTD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C006') AS STMT_SND_MTD
 				, BILLADR_ADR1
 				, BILLADR_ADR2
 				, BILLADR_ZIP
 				, HDP_NO
-				, BRD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.BRD = CD.CODE AND CD.GROUP_CD = 'C004') AS BRD
 				, SCRT_NO
 				, EMAIL_ADR
 				, CRD_NO
-				, IMPSB_CLAS
-				, IMPSB_CD
+				, DECODE(RC.IMPSB_CLAS, '1', '불능', '유효') as IMPSB_CLAS
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C001') AS IMPSB_CD
 				, LST_OPR_TM
 				, LST_OPR_D
 				, LST_OPRT_EMPNO
-			FROM RCVAPPL
+			FROM RCVAPPL RC
 			<where>
 				<if test="ssn != null and ssn != ''">
 					SSN = #{ssn}
@@ -280,7 +281,7 @@
 		WHERE ROWNUM = 1
 	</select>
 
-	<select id="selectRcvapplByPeriod" parameterType="com.card.domain.RcvapplVO" resultType="com.card.domain.RcvapplVO">
+	<select id="selectRcvapplByPeriod" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.RcvapplVO">
 		SELECT 
 			RCV_D
 			, RCV_SEQ_NO
@@ -294,8 +295,8 @@
 			, IMPSB_CD
 		FROM RCVAPPL
 		<where>
-			<if test="rcvD != null and rcvD != ''">
-				RCV_D BETWEEN TO_DATE(#{rcvD}, 'YYYYMMDD') AND TO_DATE(#{rcvD} || ' 23:59:59', 'YYYYMMDD HH24:MI:SS')
+			<if test="startRcvD != null and startRcvD != '' and endRcvD != null and endRcvD != ''">
+				RCV_D BETWEEN TO_DATE(#{startRcvD}, 'YYYYMMDD') AND TO_DATE(#{endRcvD} || ' 23:59:59', 'YYYYMMDD HH24:MI:SS')
 			</if>
 			<if test="applClas != null and applClas != ''">
 				AND APPL_CLAS = #{applClas}
@@ -305,11 +306,78 @@
 			</if>
 		</where>
 	</select>
-	<!--
-	<select id="selectCardListBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CrdVO">
-		
+
+	<select id="selectCardListBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CardListBySsnCrdNoDTO">
+		SELECT
+			RC.HG_NM
+			, RC.HDP_NO
+			, RC.RCV_D
+			, RC.STL_MTD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STL_MTD = CD.CODE AND CD.GROUP_CD = 'C002') AS STL_MTD_NM
+			, RC.BNK_CD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.BNK_CD = CD.CODE AND CD.GROUP_CD = 'C003') AS BNK_CD_NM
+			, RC.STL_ACT
+			, RC.STL_DD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STL_DD = CD.CODE AND CD.GROUP_CD = 'C009') AS STL_DD_NM
+			, RC.STMT_SND_MTD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C006') AS STMT_SND_MTD_NM
+			, RC.EMAIL_ADR
+			, RC.BILLADR_ZIP
+			, CR.CRD_NO
+			, CR.ENG_NM
+			, CR.VLD_DUR
+			, CR.BRD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE CR.BRD = CD.CODE AND CD.GROUP_CD = 'C004') AS BRD_NM
+			, CR.CRD_GRD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE CR.CRD_GRD = CD.CODE AND CD.GROUP_CD = 'C005') AS CRD_GRD_NM
+			, CR.FST_REG_D
+			, CR.BF_CRD_NO
+			, DECODE(CR.LST_CRD_F, '1', 'O', 'X') as LST_CRD_F
+			, CR.MGT_BBRN
+		FROM CRD CR
+		INNER JOIN RCVAPPL RC
+		ON CR.CRD_NO = RC.CRD_NO
+		<where>
+			<if test="ssn != null and ssn != ''">
+				CR.SSN = #{ssn}
+			</if>
+			<if test="crdNo != null and crdNo != ''">
+				AND CR.CRD_NO = #{crdNo}
+			</if>
+		</where>
 	</select>
-	 -->
+	
+	<select id="selectCardDtlBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CrdVO">
+		SELECT 
+			CR.CRD_NO
+			, CR.CUST_NO
+			, CR.MGT_BBRN
+			, CR.REG_D
+			, CR.SSN
+			, CR.VLD_DUR
+			, CR.BRD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE CR.BRD = CD.CODE AND CD.GROUP_CD = 'C004') AS BRD_NM
+			, CR.SCRT_NO
+			, CR.ENG_NM
+			, CR.BF_CRD_NO
+			, CR.LST_CRD_F
+			, CR.FST_REG_D
+			, CR.CRD_GRD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE CR.CRD_GRD = CD.CODE AND CD.GROUP_CD = 'C005') AS CRD_GRD_NM
+			, CR.LST_OPR_TM
+			, CR.LST_OPR_D
+			, CR.LST_OPRT_EMPNO
+		FROM CRD CR
+		<where>
+			<if test="ssn != null and ssn != ''">
+				SSN = #{ssn}
+			</if>
+			<if test="crdNo != null and crdNo != ''">
+				AND CRD_NO = #{crdNo}
+			</if>
+		</where>
+	</select>
+
 	<update id="updateCrdNoInRcvappl" parameterType="com.card.domain.CrdVO">
 		UPDATE RCVAPPL SET
 			CRD_NO = #{crdNo}
@@ -319,5 +387,31 @@
 		AND BRD = #{brd}
 		AND RCV_SEQ_NO = #{rcvSeqNo}
 	</update>
+	
+	<select id="custIndexSelect" parameterType="com.card.domain.CustVO" resultType="com.card.domain.CustIndexListDTO">
+		SELECT
+			CU.SSN
+			, CU.HG_NM
+			, CU.BIRTH_D
+			, CU.HDP_NO
+			, BI.BNK_CD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE BI.BNK_CD = CD.CODE AND CD.GROUP_CD = 'C003') AS BNK_CD_NM
+			, BI.STL_ACT
+			, BI.BILL_ADR1 || BI.BILL_ADR2 AS BILL_ADR1
+		FROM CUST CU
+		INNER JOIN BILL BI
+		ON CU.CUST_NO = BI.CUST_NO
+		<where>
+			<if test="hgNm != null and hgNm != ''">
+				CU.HG_NM = #{hgNm}
+			</if>
+			<if test="birthD != null and birthD != ''">
+				AND CU.BIRTH_D = #{birthD}
+			</if>
+			<if test="hdpNo != null and hdpNo != ''">
+				AND CU.HDP_NO = #{hdpNo}
+			</if>
+		</where>
+	</select>
 
 </mapper>

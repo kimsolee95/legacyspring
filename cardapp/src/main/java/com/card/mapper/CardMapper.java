@@ -3,12 +3,15 @@ package com.card.mapper;
 import java.util.List;
 
 import com.card.domain.BillVO;
+import com.card.domain.CardListBySsnCrdNoDTO;
 import com.card.domain.CrdVO;
+import com.card.domain.CustIndexListDTO;
 import com.card.domain.CustVO;
 import com.card.domain.RcvapplVO;
+import com.card.domain.SearchKeywordDTO;
 
 public interface CardMapper {
-	
+
 	/* 신청 insert */
 	public int insertRcvappl(RcvapplVO rcvappl);
 	
@@ -43,8 +46,18 @@ public interface CardMapper {
 	public RcvapplVO selectRecentRcvappl(RcvapplVO rcvappl);
 	
 	/* 기간별 입회신청 내역조회 시, 입회신청 목록 select */
-	public List<RcvapplVO> selectRcvapplByPeriod(RcvapplVO rcvappl);
+	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword);
+	
+	/* 소지 카드목록 조회 by 주민번호, 카드번호 */
+	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(CrdVO crd);
+	
+	/* 카드 상세 조회 */
+	public CrdVO selectCardDtlBySsnCrdNo(CrdVO crd);
 	
 	/* 입회신청서 정상일 시, 카드등록 이후 신청서 table에 해당 카드번호 update */
 	public int updateCrdNoInRcvappl(CrdVO crd);
+	
+	/* 회원 색인 조회 */
+	public List<CustIndexListDTO> custIndexSelect(CustVO cust);
+
 }
