@@ -216,6 +216,10 @@
 	</select>
 	
 	<select id="findOriginalCardNo" resultType="string">
+		SELECT
+			T.CRD_NO
+		FROM
+		(
 		SELECT 
 			CR.CRD_NO
 		FROM CUST CU
@@ -223,6 +227,8 @@
 		ON CU.CUST_NO = CR.CUST_NO
 		WHERE CU.SSN = #{ssn}
 		AND CR.BRD = #{brd}
+		) T
+		WHERE ROWNUM = 1
 	</select>
 	
 	<update id="existCardStatusUpdate" parameterType="com.card.domain.CrdVO">
@@ -244,12 +250,12 @@
 				, BIRTH_D
 				, HG_NM
 				, ENG_NM
-				, STL_MTD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STL_MTD = CD.CODE AND CD.GROUP_CD = 'C002') AS STL_MTD
 				, STL_ACT
 				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.BNK_CD = CD.CODE AND CD.GROUP_CD = 'C003') AS BNK_CD
-				, STL_DD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STL_DD = CD.CODE AND CD.GROUP_CD = 'C009') AS STL_DD
 				, MGT_BBRN
-				, APPL_CLAS
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.APPL_CLAS = CD.CODE AND CD.GROUP_CD = 'C007') AS APPL_CLAS
 				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C006') AS STMT_SND_MTD
 				, BILLADR_ADR1
 				, BILLADR_ADR2
@@ -260,7 +266,7 @@
 				, EMAIL_ADR
 				, CRD_NO
 				, DECODE(RC.IMPSB_CLAS, '1', '불능', '유효') as IMPSB_CLAS
-				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C001') AS IMPSB_CD
+				, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.IMPSB_CD = CD.CODE AND CD.GROUP_CD = 'C001') AS IMPSB_CD
 				, LST_OPR_TM
 				, LST_OPR_D
 				, LST_OPRT_EMPNO
@@ -283,31 +289,31 @@
 
 	<select id="selectRcvapplByPeriod" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.RcvapplVO">
 		SELECT 
-			RCV_D
-			, RCV_SEQ_NO
-			, SSN
-			, HG_NM
-			, ENG_NM
-			, APPL_CLAS
-			, BRD
-			, HDP_NO
-			, IMPSB_CLAS
-			, IMPSB_CD
-		FROM RCVAPPL
+			RC.RCV_D
+			, RC.RCV_SEQ_NO
+			, RC.SSN
+			, RC.HG_NM
+			, RC.ENG_NM
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.APPL_CLAS = CD.CODE AND CD.GROUP_CD = 'C007') AS APPL_CLAS
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.BRD = CD.CODE AND CD.GROUP_CD = 'C004') AS BRD
+			, RC.HDP_NO
+			, DECODE(RC.IMPSB_CLAS, '1', '불능', '유효') as IMPSB_CLAS
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE RC.IMPSB_CD = CD.CODE AND CD.GROUP_CD = 'C001') AS IMPSB_CD
+		FROM RCVAPPL RC
 		<where>
 			<if test="startRcvD != null and startRcvD != '' and endRcvD != null and endRcvD != ''">
-				RCV_D BETWEEN TO_DATE(#{startRcvD}, 'YYYYMMDD') AND TO_DATE(#{endRcvD} || ' 23:59:59', 'YYYYMMDD HH24:MI:SS')
+				RC.RCV_D BETWEEN TO_DATE(#{startRcvD}, 'YYYYMMDD') AND TO_DATE(#{endRcvD} || ' 23:59:59', 'YYYYMMDD HH24:MI:SS')
 			</if>
 			<if test="applClas != null and applClas != ''">
-				AND APPL_CLAS = #{applClas}
+				AND RC.APPL_CLAS = #{applClas}
 			</if>
 			<if test="ssn != null and ssn != ''">
-				AND SSN = #{ssn}
+				AND RC.SSN = #{ssn}
 			</if>
 		</where>
 	</select>
 
-	<select id="selectCardListBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CardListBySsnCrdNoDTO">
+	<select id="selectCardListBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CardListBySsnCrdNoDTO">
 		SELECT
 			RC.HG_NM
 			, RC.HDP_NO
@@ -347,9 +353,10 @@
 		</where>
 	</select>
 	
-	<select id="selectCardDtlBySsnCrdNo" parameterType="com.card.domain.CrdVO" resultType="com.card.domain.CrdVO">
-		SELECT 
-			CR.CRD_NO
+	<select id="selectCardDtlBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CrdVO">
+		SELECT
+			CU.HG_NM
+			, CR.CRD_NO
 			, CR.CUST_NO
 			, CR.MGT_BBRN
 			, CR.REG_D
@@ -360,7 +367,7 @@
 			, CR.SCRT_NO
 			, CR.ENG_NM
 			, CR.BF_CRD_NO
-			, CR.LST_CRD_F
+			, DECODE(CR.LST_CRD_F, '1', 'O', 'X') AS LST_CRD_F
 			, CR.FST_REG_D
 			, CR.CRD_GRD
 			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE CR.CRD_GRD = CD.CODE AND CD.GROUP_CD = 'C005') AS CRD_GRD_NM
@@ -368,12 +375,14 @@
 			, CR.LST_OPR_D
 			, CR.LST_OPRT_EMPNO
 		FROM CRD CR
+		INNER JOIN CUST CU
+		ON CR.CUST_NO = CU.CUST_NO
 		<where>
 			<if test="ssn != null and ssn != ''">
-				SSN = #{ssn}
+				CR.SSN = #{ssn}
 			</if>
 			<if test="crdNo != null and crdNo != ''">
-				AND CRD_NO = #{crdNo}
+				AND CR.CRD_NO = #{crdNo}
 			</if>
 		</where>
 	</select>
@@ -388,7 +397,7 @@
 		AND RCV_SEQ_NO = #{rcvSeqNo}
 	</update>
 	
-	<select id="custIndexSelect" parameterType="com.card.domain.CustVO" resultType="com.card.domain.CustIndexListDTO">
+	<select id="custIndexSelect" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CustIndexListDTO">
 		SELECT
 			CU.SSN
 			, CU.HG_NM

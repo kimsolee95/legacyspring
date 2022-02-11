@@ -49,15 +49,15 @@ public interface CardMapper {
 	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword);
 	
 	/* 소지 카드목록 조회 by 주민번호, 카드번호 */
-	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(CrdVO crd);
+	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 카드 상세 조회 */
-	public CrdVO selectCardDtlBySsnCrdNo(CrdVO crd);
+	public CrdVO selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 입회신청서 정상일 시, 카드등록 이후 신청서 table에 해당 카드번호 update */
 	public int updateCrdNoInRcvappl(CrdVO crd);
 	
 	/* 회원 색인 조회 */
-	public List<CustIndexListDTO> custIndexSelect(CustVO cust);
+	public List<CustIndexListDTO> custIndexSelect(SearchKeywordDTO searchKeyword);
 
 }

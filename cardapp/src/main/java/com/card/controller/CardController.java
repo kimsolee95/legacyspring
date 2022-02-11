@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/card/")
 @AllArgsConstructor
 public class CardController {
-	
+
 	private CardService cardService;
 	private CommCodeService commCodeService;
 	
@@ -55,7 +55,38 @@ public class CardController {
 	
 	@PostMapping("/rcvapplbyperiod")
 	public void selectRcvapplByPeriod(SearchKeywordDTO searchKeyword, Model model) {
+		model.addAttribute("applClasCode", commCodeService.selectApplClasCode());
 		model.addAttribute("list", cardService.selectRcvapplByPeriod(searchKeyword));
-	}	
+	}
+	
+	@GetMapping("/custIndex")
+	public void custIndexSelect() {
+		
+	}
+	
+	@PostMapping("/custIndex")
+	public void custIndexSelect(SearchKeywordDTO searchKeyword, Model model) {
+		model.addAttribute("list", cardService.custIndexSelect(searchKeyword));
+	}
 
+	
+	@GetMapping("/cardListBySsnCrdNo")
+	public void selectCardListBySsnCrdNo() {
+		
+	}
+	
+	@PostMapping("/cardListBySsnCrdNo")
+	public void selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword, Model model) {
+		model.addAttribute("list", cardService.selectCardListBySsnCrdNo(searchKeyword));
+	}
+	
+	@GetMapping("/cardDtlBySsnCrdNo")
+	public void selectCardDtlBySsnCrdNo() {
+		
+	}
+	
+	@PostMapping("/cardDtlBySsnCrdNo")
+	public void selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword, Model model) {
+		model.addAttribute("list", cardService.selectCardDtlBySsnCrdNo(searchKeyword));
+	}	
 }

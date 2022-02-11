@@ -10,7 +10,7 @@ import com.card.domain.RcvapplVO;
 import com.card.domain.SearchKeywordDTO;
 
 public interface CardService {
-	
+
 	//입회신청서
 	public Long signup(RcvapplVO rcvappl);
 	
@@ -21,11 +21,12 @@ public interface CardService {
 	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword);
 	
 	//소지 카드내역 조회
-	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(CrdVO crd);
+	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 회원 색인 조회 */
-	public List<CustIndexListDTO> custIndexSelect(CustVO cust);
+	public List<CustIndexListDTO> custIndexSelect(SearchKeywordDTO searchKeyword);
 
 	/* 카드 상세 조회 */
-	public CrdVO selectCardDtlBySsnCrdNo(CrdVO crd);
+	public CrdVO selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword);
+
 }

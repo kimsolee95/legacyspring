@@ -63,7 +63,7 @@
 		      <td><c:out value="${list.applClas}"></c:out></td>
 		      <td><c:out value="${list.brd}"></c:out></td>
 		      <td><c:out value="${list.hdpNo}"></c:out></td>
-		      <td><c:out value="${list.impsbCd}"></c:out></td>
+		      <td><c:out value="${list.impsbClas}"></c:out></td>
 		      <td><c:out value="${list.impsbCd}"></c:out></td>
 		    </tr>
 		    </c:forEach>
@@ -72,6 +72,8 @@
 	</div>
 	
 </div>
+
+<%@include file="../includes/footer.jsp" %>
 
 <script>
  

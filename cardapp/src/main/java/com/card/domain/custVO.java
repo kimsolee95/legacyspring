@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CustVO {
-
 	/* 고객 table */
 	
 	/* 고객번호 */

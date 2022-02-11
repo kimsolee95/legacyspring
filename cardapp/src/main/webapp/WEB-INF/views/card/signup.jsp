@@ -28,8 +28,6 @@
 		  </div>
 		<!-- 
 		</form>
-
-
 		<form class="row g-3" role="form" id="frm" name="frm" action="/card/signup" method="post">
 		-->
 		  <div class="col-md-4">
@@ -38,7 +36,7 @@
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputPassword4" class="form-label">신청구분</label>
-			<select name="applClas">
+			<select class="form-select" aria-label="Default select example" name="applClas"> <!-- select box ui 개선 필요함 -->
 			<c:forEach items="${applClasCode}" var="applClasCode" varStatus="status2">
 				<option value="<c:out value="${applClasCode.code}"/>">
 					<c:out value="${applClasCode.codeNm}"/>
@@ -186,24 +184,10 @@
 	</div>
 </div>
 
+<%@include file="../includes/footer.jsp" %>
+
 <script>
-/* 
-$(document).ready(function() {
-	
-	var operForm = $("#operForm");
-	
-	$("button[data-oper='insert']").on("click", function(e) { //등록 버튼 클릭 이벤트 발생시,
-		operForm.attr("action", "/card/signup").attr.("method", "get");
-		operForm.submit();
-	});
-	
-	$("button[data-oper='search']").on("click", function(e) { //검색 버튼 클릭 이벤트 발생시,
-		operForm.attr("action", "/card/recentrcvappl");
-		operForm.submit();
-	})
-	
-});
- */
+
 </script>
 
 <style>

@@ -13,11 +13,12 @@
 			<div class="main-buttons">
 				<a href='/card/rcvapplbyperiod'><button type="button" class="btn btn-primary">기간별 조회</button></a>
 			</div>
-			<!--
-			<div class="buttons">
-				<a href='/card/signup'><button type="button" class="btn btn-primary">뒤로</button></a>
+			<div class="main-buttons">
+				<a href='/card/custIndex'><button type="button" class="btn btn-primary">색인 조회</button></a>
 			</div>
-			 -->
+			<div class="main-buttons">
+				<a href='/card/cardListBySsnCrdNo'><button type="button" class="btn btn-primary">카드내역 조회</button></a>
+			</div>
 		</form>
 	</div>
 </div>

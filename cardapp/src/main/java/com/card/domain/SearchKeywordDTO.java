@@ -16,5 +16,16 @@ public class SearchKeywordDTO {
 	
 	/* 주민등록번호 */
 	private String ssn;
-
+	
+	/* 한글성명 */
+	private String hgNm;
+	
+	/* 생년월일 */
+	private String birthD;
+	
+	/* 핸드폰 번호 */
+	private String hdpNo;
+	
+	/* 카드 번호 */
+	private String crdNo;
 }

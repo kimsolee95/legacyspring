@@ -257,9 +257,9 @@ public class CardServiceImpl implements CardService{
 	}
 
 	@Override
-	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(CrdVO crd) {
+	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword) {
 		// 소지 카드내역 조회 ( 주민번호, 카드로 카드목록 조회 )
-		return cardMapper.selectCardListBySsnCrdNo(crd);
+		return cardMapper.selectCardListBySsnCrdNo(searchKeyword);
 	}
 
 	@Override
@@ -269,15 +269,16 @@ public class CardServiceImpl implements CardService{
 	}
 
 	@Override
-	public List<CustIndexListDTO> custIndexSelect(CustVO cust) {
+	public List<CustIndexListDTO> custIndexSelect(SearchKeywordDTO searchKeyword) {
 		/* 회원 색인 조회 */
-		return cardMapper.custIndexSelect(cust);
+		return cardMapper.custIndexSelect(searchKeyword);
 	}
 
 	@Override
-	public CrdVO selectCardDtlBySsnCrdNo(CrdVO crd) {
+	public CrdVO selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword) {
 		//카드 상세 조회 
-		return cardMapper.selectCardDtlBySsnCrdNo(crd);
+		return cardMapper.selectCardDtlBySsnCrdNo(searchKeyword);
 	}
 	
+
 }
