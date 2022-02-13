@@ -48,8 +48,10 @@ public interface CardMapper {
 	/* 기간별 입회신청 내역조회 시, 입회신청 목록 select */
 	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword);
 	
-	/* 소지 카드목록 조회 by 주민번호, 카드번호 */
+	/* 소지 카드목록(카드정보) 조회 by 주민번호, 카드번호 */
 	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
+	
+	//public 
 	
 	/* 카드 상세 조회 */
 	public CrdVO selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword);

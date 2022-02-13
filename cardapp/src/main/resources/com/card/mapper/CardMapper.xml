@@ -353,6 +353,36 @@
 		</where>
 	</select>
 	
+	<select id="selectCardMasterBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CardListBySsnCrdNoDTO">
+		SELECT
+			CU.CUST_NO
+			, CU.HG_NM
+			, CU.HDP_NO
+			, CU.HDP_NO
+			, CU.REG_D
+			, BI.STL_MTD
+			, BI.STL_DD
+			, BI.STMT_SND_MTD
+			, BI.EMAIL_ADR
+			, BI.BILL_ZIP
+		FROM CUST CU
+		INNER JOIN BILL BI
+		ON CU.CUST_NO = BI.CUST_NO
+		<where>
+			<if test="ssn != null and ssn != ''">
+				CU.SSN = #{ssn}
+			</if>
+			<if test="crdNo != null and crdNo != ''">
+				AND EXISTS (
+					SELECT 1 
+					FROM CRD CR 
+					WHERE CU.CUST_NO = CR.CUST_NO 
+					AND CR.CRD_NO = #{crdNo}
+				)
+			</if>
+		</where>
+	</select>
+	
 	<select id="selectCardDtlBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CrdVO">
 		SELECT
 			CU.HG_NM

@@ -80,7 +80,8 @@ public class CardController {
 	@PostMapping("/cardListBySsnCrdNo")
 	public void selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword, Model model) {
 		//소지 카드내역 조회
-		model.addAttribute("list", cardService.selectCardListBySsnCrdNo(searchKeyword));
+		//todo: 조회창 1개 추가 -> Bill table 내 정보 (고객 - Bill 간 1:1 관계여서 selectOne 쿼리 추가하여 model에 세팅하기)
+		model.addAttribute("list", cardService.selectCardListBySsnCrdNo(searchKeyword)); //카드정보
 	}
 	
 	@GetMapping("/cardDtlBySsnCrdNo")

@@ -6,7 +6,6 @@
 
 <div class="container">
 	<div class="card-signup-form">
-
 		<form class="row g-3" id="searchForm" action="/card/cardListBySsnCrdNo" method="post">
 		  <div class="col-md-3">
 		    <label for="inputEmail4" class="form-label">주민번호</label>
@@ -22,6 +21,69 @@
 			<button type="submit" class="btn btn-info">검색</button>
 		  </div>
 		</form>
+	</div>
+	
+	<div class="card-signup-form">
+		<h6><button class="maintext badge bg-dark">조회</button></h6>
+		<div class="row col-md-12">
+			<div class="col-md-4">
+				<label for="inputEmail4" class="form-label">성명(한글)</label>
+				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputPassword4" class="form-label">핸드폰번호</label>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputAddress" class="form-label">등록일자</label>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+			</div>
+		</div>
+		
+		<div class="row col-md-12">
+			<div class="col-md-4">
+				<label for="inputEmail4" class="form-label">결제방법</label>
+				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputPassword4" class="form-label">결제은행</label>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputAddress" class="form-label">결제계좌</label>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+			</div>
+		</div>
+
+		<div class="row col-md-12">
+			<div class="col-md-4">
+				<label for="inputEmail4" class="form-label">결제일자</label>
+				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputPassword4" class="form-label">청구서 발송방법</label>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+			</div>
+			<div class="col-md-4">
+				<label for="inputAddress" class="form-label">E-MAIL</label>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+			</div>
+		</div>
+		
+		<div class="row col-md-12">
+			<div class="col-md-2">
+				<label for="inputEmail4" class="form-label">우편번호</label>
+				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+			</div>
+			<div class="col-md-2">
+				<label for="inputPassword4" class="form-label">-</label>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+			</div>
+			<div class="col-md-8">
+				<label for="inputAddress" class="form-label">-</label>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+			</div>
+		</div>		
 	</div>
 	
 	<div class="card-signup-form">

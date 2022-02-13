@@ -20,7 +20,7 @@ public interface CardService {
 	//기간별 입회신청 내역조회 (기간 입력 parameter)
 	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword);
 	
-	//소지 카드내역 조회
+	//소지 카드내역 조회 (카드정보)
 	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 회원 색인 조회 */
