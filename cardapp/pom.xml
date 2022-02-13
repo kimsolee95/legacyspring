@@ -78,7 +78,13 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
-		
+		<!-- transactional 어노테이션 설정을 위해 추가... -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
 		<!-- Logging -->
 
     

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.card.domain.BillVO;
 import com.card.domain.CardListBySsnCrdNoDTO;
@@ -30,6 +31,7 @@ public class CardServiceImpl implements CardService{
 	private CardMapper cardMapper;
 	
 	@Override
+	@Transactional
 	public Long signup(RcvapplVO rcvappl) {
 		
 		//1. 신청서 table insert (무조건)	
