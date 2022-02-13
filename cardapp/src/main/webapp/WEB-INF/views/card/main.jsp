@@ -6,7 +6,8 @@
 
 <div class="container">
 	<div class="card-signup-form">
-		<form class="row g-3" role="form" id="frm" name="frm" action="/card/signup" method="post">
+		<!-- <form class="row g-3" role="form" id="frm" name="frm" action="/card/signup" method="post">  -->
+		<div class="d-grid gap-2">
 			<div class="main-buttons">
 				<a href='/card/signup'><button type="button" class="btn btn-primary">입회신청서</button></a>
 			</div>
@@ -19,7 +20,8 @@
 			<div class="main-buttons">
 				<a href='/card/cardListBySsnCrdNo'><button type="button" class="btn btn-primary">카드내역 조회</button></a>
 			</div>
-		</form>
+		</div>
+		<!-- </form>  -->
 	</div>
 </div>
 
@@ -35,6 +37,7 @@
 		border: 5px solid #EEE;
 		border-radius: 10px;
 		padding: 2em;
+		background-color: #EEE;
 	}
 	
 	.main-buttons {

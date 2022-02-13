@@ -9,12 +9,25 @@
 <body>
 
 	<div id="header">
-		<div class="container">회원 입회 신청</div>
-	</div>	
+			<h5><div class="maintext badge bg-dark">회원 입회 신청</div></h5>
+	</div>
 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 
 </body>
 </html>
+
+<style>
+
+	#header {
+		margin-left: 450px;
+		margin-top: 20px;
+	}
+	
+	.maintext {
+		color: white;
+	}
+	
+</style>
 
 

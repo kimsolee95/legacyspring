@@ -5,14 +5,14 @@
 <div class="container">
 	<div class="card-signup-form">
 			<div class="main-buttons">
-				<a href='/card/main'><button type="button" class="btn btn-primary">Main Back</button></a>
+				<a href='/card/main'><button type="button" class="btn btn-dark">Main Back</button></a>
 			</div>	
 	</div>
 </div>
 
 <style>
 	.card-signup-form {
-		margin: 50px auto;
+		margin: 20px auto;
 		border: 5px solid #EEE;
 		border-radius: 10px;
 		padding: 2em;
@@ -20,7 +20,6 @@
 	
 	.main-buttons {
 		margin-left: 450px;
-		margin-top: 30px;
 	}
 	
 	.horizon {
