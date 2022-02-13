@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.card.domain.BillVO;
 import com.card.domain.CardListBySsnCrdNoDTO;
+import com.card.domain.CardMasterInfoDTO;
 import com.card.domain.CrdVO;
 import com.card.domain.CustIndexListDTO;
 import com.card.domain.CustVO;
@@ -265,6 +266,12 @@ public class CardServiceImpl implements CardService{
 	}
 
 	@Override
+	public CardMasterInfoDTO selectCardMasterBySsnCrdNo(SearchKeywordDTO searchKeyword) {
+		/* 카드 소유자 정보 조회 by 주민번호, 카드번호 */
+		return cardMapper.selectCardMasterBySsnCrdNo(searchKeyword);
+	}
+	
+	@Override
 	public List<RcvapplVO> selectRcvapplByPeriod(SearchKeywordDTO searchKeyword) {
 		//기간별 입회신청 내역조회 시, 입회신청 목록 select 
 		return cardMapper.selectRcvapplByPeriod(searchKeyword);
@@ -281,6 +288,5 @@ public class CardServiceImpl implements CardService{
 		//카드 상세 조회 
 		return cardMapper.selectCardDtlBySsnCrdNo(searchKeyword);
 	}
-	
 
 }

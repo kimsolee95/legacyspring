@@ -3,6 +3,7 @@ package com.card.service;
 import java.util.List;
 
 import com.card.domain.CardListBySsnCrdNoDTO;
+import com.card.domain.CardMasterInfoDTO;
 import com.card.domain.CrdVO;
 import com.card.domain.CustIndexListDTO;
 import com.card.domain.CustVO;
@@ -22,6 +23,9 @@ public interface CardService {
 	
 	//소지 카드내역 조회 (카드정보)
 	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
+
+	/* 카드 소유자 정보 조회 by 주민번호, 카드번호 */
+	public CardMasterInfoDTO selectCardMasterBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 회원 색인 조회 */
 	public List<CustIndexListDTO> custIndexSelect(SearchKeywordDTO searchKeyword);

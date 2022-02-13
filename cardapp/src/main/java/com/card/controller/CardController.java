@@ -82,6 +82,7 @@ public class CardController {
 		//소지 카드내역 조회
 		//todo: 조회창 1개 추가 -> Bill table 내 정보 (고객 - Bill 간 1:1 관계여서 selectOne 쿼리 추가하여 model에 세팅하기)
 		model.addAttribute("list", cardService.selectCardListBySsnCrdNo(searchKeyword)); //카드정보
+		model.addAttribute("masterInfo", cardService.selectCardMasterBySsnCrdNo(searchKeyword)); //카드 소지자 정보 (고객 & 결제)
 	}
 	
 	@GetMapping("/cardDtlBySsnCrdNo")

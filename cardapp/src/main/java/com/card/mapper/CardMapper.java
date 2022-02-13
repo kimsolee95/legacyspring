@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.card.domain.BillVO;
 import com.card.domain.CardListBySsnCrdNoDTO;
+import com.card.domain.CardMasterInfoDTO;
 import com.card.domain.CrdVO;
 import com.card.domain.CustIndexListDTO;
 import com.card.domain.CustVO;
@@ -51,7 +52,8 @@ public interface CardMapper {
 	/* 소지 카드목록(카드정보) 조회 by 주민번호, 카드번호 */
 	public List<CardListBySsnCrdNoDTO> selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
-	//public 
+	/* 카드 소유자 정보 조회 by 주민번호, 카드번호 */
+	public CardMasterInfoDTO selectCardMasterBySsnCrdNo(SearchKeywordDTO searchKeyword);
 	
 	/* 카드 상세 조회 */
 	public CrdVO selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword);

@@ -85,7 +85,7 @@
 		) VALUES (
 			LPAD(CUST_NO.NEXTVAL,9,0)
 			, #{ssn}
-			, #{regD}
+			, TO_CHAR(sysdate, 'YYYYMMDD')
 			, #{hgNm}
 			, #{birthD}
 			, #{hdpNo}
@@ -353,16 +353,17 @@
 		</where>
 	</select>
 	
-	<select id="selectCardMasterBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CardListBySsnCrdNoDTO">
+	<select id="selectCardMasterBySsnCrdNo" parameterType="com.card.domain.SearchKeywordDTO" resultType="com.card.domain.CardMasterInfoDTO">
 		SELECT
 			CU.CUST_NO
 			, CU.HG_NM
 			, CU.HDP_NO
-			, CU.HDP_NO
 			, CU.REG_D
-			, BI.STL_MTD
-			, BI.STL_DD
-			, BI.STMT_SND_MTD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE BI.STL_MTD = CD.CODE AND CD.GROUP_CD = 'C002') AS STL_MTD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE BI.BNK_CD = CD.CODE AND CD.GROUP_CD = 'C003') AS BNK_CD
+			, BI.STL_ACT
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE BI.STL_DD = CD.CODE AND CD.GROUP_CD = 'C009') AS STL_DD
+			, (SELECT CODE_NM FROM COMM_CODE_DTL CD WHERE BI.STMT_SND_MTD = CD.CODE AND CD.GROUP_CD = 'C006') AS STMT_SND_MTD
 			, BI.EMAIL_ADR
 			, BI.BILL_ZIP
 		FROM CUST CU

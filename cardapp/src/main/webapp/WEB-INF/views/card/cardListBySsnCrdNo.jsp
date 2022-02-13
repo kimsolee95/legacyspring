@@ -28,52 +28,52 @@
 		<div class="row col-md-12">
 			<div class="col-md-4">
 				<label for="inputEmail4" class="form-label">성명(한글)</label>
-				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+				<input type="text" class="form-control" id="ssn" name="ssn" value="<c:out value="${masterInfo.hgNm}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputPassword4" class="form-label">핸드폰번호</label>
-				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" value="<c:out value="${masterInfo.hdpNo}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputAddress" class="form-label">등록일자</label>
-				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" value="<c:out value="${masterInfo.regD}"></c:out>" disabled>
 			</div>
 		</div>
 		
 		<div class="row col-md-12">
 			<div class="col-md-4">
 				<label for="inputEmail4" class="form-label">결제방법</label>
-				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+				<input type="text" class="form-control" id="ssn" name="ssn" value="<c:out value="${masterInfo.stlMtd}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputPassword4" class="form-label">결제은행</label>
-				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" value="<c:out value="${masterInfo.bnkCd}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputAddress" class="form-label">결제계좌</label>
-				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" value="<c:out value="${masterInfo.stlAct}"></c:out>" disabled>
 			</div>
 		</div>
 
 		<div class="row col-md-12">
 			<div class="col-md-4">
 				<label for="inputEmail4" class="form-label">결제일자</label>
-				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+				<input type="text" class="form-control" id="ssn" name="ssn" value="<c:out value="${masterInfo.stlDd}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputPassword4" class="form-label">청구서 발송방법</label>
-				<input type="text" class="form-control" id="rcvD" name="rcvD" disabled>
+				<input type="text" class="form-control" id="rcvD" name="rcvD" value="<c:out value="${masterInfo.stmtSndMtd}"></c:out>" disabled>
 			</div>
 			<div class="col-md-4">
 				<label for="inputAddress" class="form-label">E-MAIL</label>
-				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" disabled>
+				<input type="text" class="form-control" id="rcvSeqNo" name="rcvSeqNo" value="<c:out value="${masterInfo.emailAdr}"></c:out>" disabled>
 			</div>
 		</div>
 		
 		<div class="row col-md-12">
 			<div class="col-md-2">
 				<label for="inputEmail4" class="form-label">우편번호</label>
-				<input type="text" class="form-control" id="ssn" name="ssn" disabled>
+				<input type="text" class="form-control" id="ssn" name="ssn" value="<c:out value="${masterInfo.billZip}"></c:out>" disabled>
 			</div>
 			<div class="col-md-2">
 				<label for="inputPassword4" class="form-label">-</label>
