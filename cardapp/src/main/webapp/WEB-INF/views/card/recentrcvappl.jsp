@@ -73,7 +73,7 @@
 			</div>
 			<div class="row col-md-6">
 		    	<label for="inputAddress" class="form-label">결제계좌 확인여부</label>
-		    	<input type="text" class="form-control" placeholder="1234 Main St">
+		    	<input type="text" class="form-control">
 			</div>
 
 
@@ -93,7 +93,7 @@
 			
 			<div class="row col-md-12">
 		    	<label for="inputAddress" class="form-label">상세주소</label>
-		    	<input type="text" class="form-control" id="billadrAdr2" name="billadrAdr2" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" id="billadrAdr2" name="billadrAdr2">
 			</div>
 			
 

@@ -39,12 +39,14 @@ public class CardController {
 	
 	@PostMapping("/signup")
 	public String signup(RcvapplVO rcvappl) {
+		//입회신청서 등록
 		cardService.signup(rcvappl);
 		return "redirect:/card/signup";
 	}
 	
 	@GetMapping("/recentrcvappl")
 	public void selectRecentRcvappl(Model model, RcvapplVO rcvappl) {
+		//회원 입회신청서 최근 내역 조회 (입회신청서 화면과 동일)
 		model.addAttribute("selectRecentRcvapplOne", cardService.selectRecentRcvappl(rcvappl));
 	}
 	
@@ -55,38 +57,39 @@ public class CardController {
 	
 	@PostMapping("/rcvapplbyperiod")
 	public void selectRcvapplByPeriod(SearchKeywordDTO searchKeyword, Model model) {
+		//기간별 입회신청 내역조회
 		model.addAttribute("applClasCode", commCodeService.selectApplClasCode());
 		model.addAttribute("list", cardService.selectRcvapplByPeriod(searchKeyword));
 	}
 	
 	@GetMapping("/custIndex")
 	public void custIndexSelect() {
-		
 	}
 	
 	@PostMapping("/custIndex")
 	public void custIndexSelect(SearchKeywordDTO searchKeyword, Model model) {
+		//회원 색인 조회
 		model.addAttribute("list", cardService.custIndexSelect(searchKeyword));
 	}
 
 	
 	@GetMapping("/cardListBySsnCrdNo")
 	public void selectCardListBySsnCrdNo() {
-		
 	}
 	
 	@PostMapping("/cardListBySsnCrdNo")
 	public void selectCardListBySsnCrdNo(SearchKeywordDTO searchKeyword, Model model) {
+		//소지 카드내역 조회
 		model.addAttribute("list", cardService.selectCardListBySsnCrdNo(searchKeyword));
 	}
 	
 	@GetMapping("/cardDtlBySsnCrdNo")
 	public void selectCardDtlBySsnCrdNo() {
-		
 	}
 	
 	@PostMapping("/cardDtlBySsnCrdNo")
 	public void selectCardDtlBySsnCrdNo(SearchKeywordDTO searchKeyword, Model model) {
+		//카드 상세 조회
 		model.addAttribute("list", cardService.selectCardDtlBySsnCrdNo(searchKeyword));
 	}	
 }

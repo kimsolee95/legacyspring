@@ -67,7 +67,7 @@
 		  </div>
 		  <div class="col-md-4">
 		    <label for="inputAddress" class="form-label">생년월일</label>
-		    <input type="text" class="form-control" id="birthD" name="birthD" placeholder="1234 Main St">
+		    <input type="text" class="form-control" id="birthD" name="birthD" placeholder="ex) 19720304">
 		  </div>
 
 
@@ -113,11 +113,11 @@
 			<div class="row col-md-12">
 			<div class="col-md-6">
 		    	<label for="inputAddress" class="form-label">결제계좌</label>
-		    	<input type="text" class="form-control" id="stlAct" name="stlAct" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" id="stlAct" name="stlAct" placeholder="ex) 1002250716302">
 			</div>
 			<div class="col-md-6">
 		    	<label for="inputAddress" class="form-label">결제계좌 확인여부</label>
-		    	<input type="text" class="form-control" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" disabled>
 			</div>
 			</div>
 
@@ -137,7 +137,7 @@
 			</div>
 			<div class="col-md-6">
 		    	<label for="inputAddress" class="form-label">우편번호</label>
-		    	<input type="text" class="form-control" id="billadrZip" name="billadrZip" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" id="billadrZip" name="billadrZip">
 			</div>
 			</div>
 			
@@ -146,7 +146,7 @@
 			<div class="row col-md-12">
 				<div class="col-md-11">
 		    	<label for="inputAddress" class="form-label">상세주소</label>
-		    	<input type="text" class="form-control" id="billadrAdr2" name="billadrAdr2" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" id="billadrAdr2" name="billadrAdr2">
 				</div>
 			</div>
 			
@@ -169,11 +169,11 @@
 		  
 			<div class="col-md-3">
 		    	<label for="inputAddress" class="form-label">불능 구분</label>
-		    	<input type="text" class="form-control" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" disabled>
 			</div>
 			<div class="col-md-7">
 		    	<label for="inputAddress" class="form-label">불능 사유명</label>
-		    	<input type="text" class="form-control" placeholder="1234 Main St">
+		    	<input type="text" class="form-control" disabled>
 			</div>	
 
 		  <div class="buttons">
@@ -198,7 +198,7 @@
 		border-radius: 10px;
 		padding: 2em;
 		background-color: #EEE;
-		box-shadow: 3px 3px 3px 3px gray;
+		box-shadow: 2px 2px 2px 2px #999;
 	}
 	
 	.buttons {
