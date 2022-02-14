@@ -100,7 +100,7 @@ public class CardServiceImpl implements CardService{
 				crd.setScrtNo(rcvappl.getScrtNo());
 				crd.setEngNm(rcvappl.getEngNm());
 				crd.setLstCrdF("1");
-				crd.setCrdGrd("1"); //카드 등급 일반 통일 -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
+				crd.setCrdGrd("11"); //카드 등급 일반 통일 -> char2로 수정
 				result += cardMapper.insertCrd(crd); 
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
 				crd.setRcvSeqNo(rcvappl.getRcvSeqNo());
@@ -133,7 +133,7 @@ public class CardServiceImpl implements CardService{
 				crd.setScrtNo(rcvappl.getScrtNo());
 				crd.setEngNm(rcvappl.getEngNm());
 				crd.setLstCrdF("1"); //현재 등록하는 카드가 최종 카드가 되어야 함.
-				crd.setCrdGrd("1"); //카드 등급은 일반으로 통일  -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
+				crd.setCrdGrd("11"); //카드 등급은 일반으로 통일  -> char2로 수정
 				int result = cardMapper.insertCrd(crd); //새 카드 값을 insert
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
 				crd.setRcvSeqNo(rcvappl.getRcvSeqNo());
@@ -168,7 +168,7 @@ public class CardServiceImpl implements CardService{
 				crd.setEngNm(rcvappl.getEngNm());
 				crd.setBfCrdNo(originalCardNo);
 				crd.setLstCrdF("1");
-				crd.setCrdGrd("1"); //카드 등급은 일반으로 통일  -> 이거 제한 결림;; 1글자만 되는 상태임. 일단 11에서 1로 바꿨음
+				crd.setCrdGrd("11"); //카드 등급은 일반으로 통일  -> char2로 수정
 				int result = cardMapper.insertCrd(crd); //재발급카드 insert
 				result += cardMapper.existCardStatusUpdate(crd); //존재하는 카드 최종상태를 ""로 update
 				//카드 insert가 성공적이라면 해당 카드번호를 다시 신청서에도 update해야함
